@@ -1,0 +1,7 @@
+---
+title: "Milestone 1"
+author: "Denitsa Vasileva"
+date: '2020-03-02'
+output: html_document
+---
+
