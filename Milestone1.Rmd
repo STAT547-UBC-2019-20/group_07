@@ -21,7 +21,8 @@ about the author and work itself as well as popularity, difficulty and readibili
 
 # Data Set
 
-The data set which will be used in this project can be downloaded [here](https://corgis-edu.github.io/corgis/csv/classics/?fbclid=IwAR0u9jexVHzWWvP65r7sKXYw8VvKiih80BQIzPVu8HjcpsXwjxVN9n5jCeE). The rows represent books vailable through Project Gutenberg and the columns are attributes
+The data set which will be used in this project can be downloaded [here](https://corgis-edu.github.io/corgis/csv/classics/?fbclid=IwAR0u9jexVHzWWvP65r7sKXYw8VvKiih80BQIzPVu8HjcpsXwjxVN9n5jCeE).
+The rows represent books vailable through Project Gutenberg and the columns are attributes
 of these books- e.g. meta data and popularity metrics.
 
 # Exploratory Data Analysis
@@ -30,7 +31,6 @@ of these books- e.g. meta data and popularity metrics.
 
 ```{r}
 books_data<- read.csv ("classics.csv")
-
 ```
 
 
@@ -47,4 +47,11 @@ dim(books_data)
 colnames(books_data)
 ```
 
-# Research QUestion
+# What is the relationship between year of publication and reading difficulty as measured by the automatic readibility index?
+```{r}
+books_data %>%
+  ggplot() +aes (bibliography.publication.year, metrics.difficulty.automated.readability.index) +geom_point() +ggtitle("Plot of Publication Year vs Readbility Difficulty")
+  
+```
+
+ggplot() +aes ()
