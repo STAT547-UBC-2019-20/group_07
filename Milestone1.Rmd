@@ -1,7 +1,50 @@
 ---
-title: "Milestone 1"
+title: "Project Gutenberg Classic Books Analysis"
 author: "Denitsa Vasileva"
 date: '2020-03-02'
 output: html_document
 ---
+# Load packages
+```{r, warning=FALSE}
+library (here)
+library (ggplot2)
+library (dplyr)
+```
 
+# Introduction 
+
+Project Gutenberg is a free online source which provides free access to more than 60,000
+books- mostly classics. Its purpose is to crete digital copies of books in the public domain and
+thus make them more accessible and foster a love of reading to new generations of readers.
+The Gutenberg project stores troves of information about each available book- including both metadata
+about the author and work itself as well as popularity, difficulty and readibility metrics for each book.
+
+# Data Set
+
+The data set which will be used in this project can be downloaded [here](https://corgis-edu.github.io/corgis/csv/classics/?fbclid=IwAR0u9jexVHzWWvP65r7sKXYw8VvKiih80BQIzPVu8HjcpsXwjxVN9n5jCeE). The rows represent books vailable through Project Gutenberg and the columns are attributes
+of these books- e.g. meta data and popularity metrics.
+
+# Exploratory Data Analysis
+
+## Loading File
+
+```{r}
+books_data<- read.csv ("classics.csv")
+
+```
+
+
+## How many observations do we have?
+
+```{r}
+dim(books_data)
+```
+ This shows that in the data there are 38 variables avilable for 1006 books. 
+ 
+## What are the names of the columns (i.e. the vriables we can use in our analysis)?
+
+```{r}
+colnames(books_data)
+```
+
+# Research QUestion
