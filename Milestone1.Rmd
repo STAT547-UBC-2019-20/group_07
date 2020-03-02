@@ -47,11 +47,21 @@ dim(books_data)
 colnames(books_data)
 ```
 
-# What is the relationship between year of publication and reading difficulty as measured by the automatic readibility index?
+## What is the relationship between year of publication and reading difficulty as measured by the automatic readibility index?
 ```{r}
 books_data %>%
   ggplot() +aes (bibliography.publication.year, metrics.difficulty.automated.readability.index) +geom_point() +ggtitle("Plot of Publication Year vs Readbility Difficulty")
   
 ```
 
-ggplot() +aes ()
+## What is the relationship between country of publication and average sentence length? Has the average gotten longer or shorter over time?
+```{r}
+books_data %>%
+  ggplot() +aes (bibliography.publication.year, metrics.statistics.average.sentence.length) +geom_point() +ggtitle("Plot of Publication Year vs Sentence Length")
+```
+
+
+## Sentiment Analysis
+
+# Research Question
+
