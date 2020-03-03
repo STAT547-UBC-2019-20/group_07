@@ -25,7 +25,7 @@ about the author and work itself as well as popularity, difficulty and readibili
 
 The data set which will be used in this project is the classics.csv file which can be downloaded [here](https://corgis-edu.github.io/corgis/csv/classics/?fbclid=IwAR0u9jexVHzWWvP65r7sKXYw8VvKiih80BQIzPVu8HjcpsXwjxVN9n5jCeE).
 The rows represent individual books available through Project Gutenberg and the columns are attributes
-of these books- e.g. meta data and popularity, difficulty and readibility  metrics.
+of these books- e.g. meta data and popularity, difficulty and readibility metrics.
 
 # Exploratory Data Analysis
 
@@ -83,7 +83,11 @@ books_data %>%
 
 # Research Question
 
-1. How do the prevalent sentiments and subjects in books in Project Gutenberg change based on publication year?
+1. Explore the changes in the prevalent sentiments and subjects in books in Project Gutenberg change based on publication year?
+2. Explore the changes in the prevalent sentiments and subjects in books in Project Gutenberg change based on author gender, location,etc.?
 
+# Future Analysis
 
-# Futre Analysis
+To answer the questions, we will explore different correlations between the columns with semantic metrics
+based on different meta data variables for both the authors and the books. 
+
