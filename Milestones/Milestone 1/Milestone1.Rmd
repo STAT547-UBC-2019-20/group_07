@@ -104,11 +104,12 @@ This plot does not show a relationship between publication year and sentiment po
 
 1. Explore the changes in the prevalent sentiments and subjects in books in Project Gutenberg change based on publication year?
 2. Explore the changes in the prevalent sentiments and subjects in books in Project Gutenberg change based on author gender, location,etc.?
+3. Explore what characteristics are associated with an increase in a book's popularity for download on Project Gutenberg. Potential variables to include are publication year, length, formats the book is available in, subject matter, and reading difficulty.
 
 
 # Future Analysis
 
 To answer the questions, we will explore different correlations between the columns with semantic metrics
 based on different meta data variables for both the authors and the books. We can use linear models for this
-as well as visualization tools such as ggplot graphs available in R.
+as well as visualization tools such as ggplot graphs available in R. The end goal of this set of analyses are to create an interactive visualization dashboard to allow the results of our analysis to be readily shared. 
 
