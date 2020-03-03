@@ -1,42 +1,13 @@
 ---
 title: "Project Gutenberg Classic Books Analysis"
-author: "Denitsa Vasileva"
+author: "Denitsa Vasileva, Lucy "
 date: '2020-03-02'
 output:
   html_document:
    keep_md: true
 ---
-# Load packages
 
-```r
-library (here)
-```
 
-```
-## here() starts at /Users/deni/Downloads/group_07
-```
-
-```r
-library (ggplot2)
-library (dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
 
 # Introduction 
 
@@ -74,6 +45,104 @@ dim(books_data)
 ```
  This shows that in the data there are 38 variables avilable for 1006 books. 
  
+## How many misisng values?
+
+
+```r
+summary(is.na(books_data))
+```
+
+```
+##  bibliography.congress.classifications bibliography.languages
+##  Mode :logical                         Mode :logical         
+##  FALSE:1005                            FALSE:1006            
+##  TRUE :1                                                     
+##  bibliography.subjects bibliography.title bibliography.type
+##  Mode :logical         Mode :logical      Mode :logical    
+##  FALSE:1006            FALSE:1006         FALSE:1006       
+##                                                            
+##  metadata.downloads metadata.id     metadata.rank   metadata.url   
+##  Mode :logical      Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:1006         FALSE:1006      FALSE:1006      FALSE:1006     
+##                                                                    
+##  bibliography.author.birth bibliography.author.death
+##  Mode :logical             Mode :logical            
+##  FALSE:1006                FALSE:1006               
+##                                                     
+##  bibliography.author.name bibliography.publication.day
+##  Mode :logical            Mode :logical               
+##  FALSE:1006               FALSE:1006                  
+##                                                       
+##  bibliography.publication.full bibliography.publication.month
+##  Mode :logical                 Mode :logical                 
+##  FALSE:1006                    FALSE:1006                    
+##                                                              
+##  bibliography.publication.month.name bibliography.publication.year
+##  Mode :logical                       Mode :logical                
+##  FALSE:1006                          FALSE:1006                   
+##                                                                   
+##  metadata.formats.total metadata.formats.types
+##  Mode :logical          Mode :logical         
+##  FALSE:1006             FALSE:1006            
+##                                               
+##  metrics.difficulty.automated.readability.index
+##  Mode :logical                                 
+##  FALSE:1006                                    
+##                                                
+##  metrics.difficulty.coleman.liau.index
+##  Mode :logical                        
+##  FALSE:1006                           
+##                                       
+##  metrics.difficulty.dale.chall.readability.score
+##  Mode :logical                                  
+##  FALSE:1006                                     
+##                                                 
+##  metrics.difficulty.difficult.words
+##  Mode :logical                     
+##  FALSE:1006                        
+##                                    
+##  metrics.difficulty.flesch.kincaid.grade
+##  Mode :logical                          
+##  FALSE:1006                             
+##                                         
+##  metrics.difficulty.flesch.reading.ease metrics.difficulty.gunning.fog
+##  Mode :logical                          Mode :logical                 
+##  FALSE:1006                             FALSE:1006                    
+##                                                                       
+##  metrics.difficulty.linsear.write.formula metrics.difficulty.smog.index
+##  Mode :logical                            Mode :logical                
+##  FALSE:1006                               FALSE:1006                   
+##                                                                        
+##  metrics.sentiments.polarity metrics.sentiments.subjectivity
+##  Mode :logical               Mode :logical                  
+##  FALSE:1006                  FALSE:1006                     
+##                                                             
+##  metrics.statistics.average.letter.per.word
+##  Mode :logical                             
+##  FALSE:1006                                
+##                                            
+##  metrics.statistics.average.sentence.length
+##  Mode :logical                             
+##  FALSE:1006                                
+##                                            
+##  metrics.statistics.average.sentence.per.word
+##  Mode :logical                               
+##  FALSE:1006                                  
+##                                              
+##  metrics.statistics.characters metrics.statistics.polysyllables
+##  Mode :logical                 Mode :logical                   
+##  FALSE:1006                    FALSE:1006                      
+##                                                                
+##  metrics.statistics.sentences metrics.statistics.syllables
+##  Mode :logical                Mode :logical               
+##  FALSE:1006                   FALSE:1006                  
+##                                                           
+##  metrics.statistics.words
+##  Mode :logical           
+##  FALSE:1006              
+## 
+```
+
 ## What are the names of the columns (i.e. the vriables we can use in our analysis)?
 
 
@@ -129,7 +198,11 @@ books_data %>%
   ggplot() +aes (bibliography.publication.year, metrics.difficulty.automated.readability.index) +geom_point() +ggtitle("Plot of Publication Year vs Readbility Difficulty")
 ```
 
-![](Milestone1_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](Milestone1_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
+The graph does not show any significant difference in the level of difficulty in books based on 
+Publication Year.
+
 
 ## What is the relationship between country of publication and average sentence length? Has the average gotten longer or shorter over time?
 
@@ -138,11 +211,23 @@ books_data %>%
   ggplot() +aes (bibliography.publication.year, metrics.statistics.average.sentence.length) +geom_point() +ggtitle("Plot of Publication Year vs Sentence Length")
 ```
 
-![](Milestone1_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](Milestone1_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
+The graph does not show any significant difference in the average length of sentences in books based on 
+Publication Year.
 
 ## Sentiment Analysis
 
+```r
+books_data %>%
+  ggplot() +aes (bibliography.publication.year, metrics.sentiments.polarity) +geom_point() +ggtitle("Plot of Publication Year vs Sentiment Polarity")
+```
+
+![](Milestone1_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+
 # Research Question
 
-1. How do the prevalent sentiments  in books in Project Gutenberg change based on publication year?
+1. How do the prevalent sentiments and subjects in books in Project Gutenberg change based on publication year?
+
+
+# Futre Analysis

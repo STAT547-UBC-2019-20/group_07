@@ -1,11 +1,13 @@
 ---
 title: "Project Gutenberg Classic Books Analysis"
-author: "Denitsa Vasileva"
+author: "Denitsa Vasileva, Lucy "
 date: '2020-03-02'
-output: html_document
+output:
+  html_document:
+   keep_md: true
 ---
-# Load packages
-```{r, warning=FALSE, quote=FALSE}
+
+```{r, include=FALSE}
 library (here)
 library (ggplot2)
 library (dplyr)
@@ -41,6 +43,12 @@ dim(books_data)
 ```
  This shows that in the data there are 38 variables avilable for 1006 books. 
  
+## How many misisng values?
+
+```{r}
+summary(is.na(books_data))
+```
+
 ## What are the names of the columns (i.e. the vriables we can use in our analysis)?
 
 ```{r}
@@ -54,15 +62,28 @@ books_data %>%
   
 ```
 
+The graph does not show any significant difference in the level of difficulty in books based on 
+Publication Year.
+
+
 ## What is the relationship between country of publication and average sentence length? Has the average gotten longer or shorter over time?
 ```{r}
 books_data %>%
   ggplot() +aes (bibliography.publication.year, metrics.statistics.average.sentence.length) +geom_point() +ggtitle("Plot of Publication Year vs Sentence Length")
 ```
 
+The graph does not show any significant difference in the average length of sentences in books based on 
+Publication Year.
 
 ## Sentiment Analysis
+```{r}
+books_data %>%
+  ggplot() +aes (bibliography.publication.year, metrics.sentiments.polarity) +geom_point() +ggtitle("Plot of Publication Year vs Sentiment Polarity")
+```
 
 # Research Question
 
-1. How do the prevalent sentiments  in books in Project Gutenberg change based on publication year?
+1. How do the prevalent sentiments and subjects in books in Project Gutenberg change based on publication year?
+
+
+# Futre Analysis
