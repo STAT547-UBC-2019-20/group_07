@@ -405,3 +405,4 @@ To answer the questions, we will explore different correlations between the colu
 based on different meta data variables for both the authors and the books. We can use linear models for this
 as well as visualization tools such as ggplot graphs available in R. The end goal of this set of analyses are to create an interactive visualization dashboard to allow the results of our analysis to be readily shared. 
 
+# References 
