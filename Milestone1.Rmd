@@ -43,11 +43,6 @@ dim(books_data)
 ```
  This shows that in the data there are 38 variables avilable for 1006 books. 
  
-## How many misisng values?
-
-```{r}
-summary(is.na(books_data))
-```
 
 ## What are the names of the columns (i.e. the vriables we can use in our analysis)?
 
