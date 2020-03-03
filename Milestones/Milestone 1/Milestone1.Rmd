@@ -1,6 +1,6 @@
 ---
 title: "Project Gutenberg Classic Books Analysis"
-author: "Denitsa Vasileva, Lucy "
+author: "Denitsa Vasileva & Lucy Mosquera"
 date: '2020-03-02'
 output:
   html_document:
@@ -8,9 +8,11 @@ output:
 ---
 
 ```{r, include=FALSE}
-library (here)
-library (ggplot2)
-library (dplyr)
+library(here)
+library(ggplot2)
+library(dplyr)
+library(knitr)
+library(kableExtra)
 ```
 
 # Introduction 
@@ -25,14 +27,22 @@ about the author and work itself as well as popularity, difficulty and readibili
 
 The data set which will be used in this project is the classics.csv file which can be downloaded [here](https://corgis-edu.github.io/corgis/csv/classics/?fbclid=IwAR0u9jexVHzWWvP65r7sKXYw8VvKiih80BQIzPVu8HjcpsXwjxVN9n5jCeE).
 The rows represent individual books available through Project Gutenberg and the columns are attributes
-of these books- e.g. meta data and popularity, difficulty and readibility metrics.
+of these books. The complete set of attributes collected for each book are defined as:
+
+```{r, echo = FALSE}
+books_desc <- read.csv(here("Data", "classics_data_description.csv"))
+
+books_desc <- setNames(books_desc, c("Variable", "Data Type", "Description", "Example"))
+knitr::kable(books_desc) %>% kable_styling(bootstrap_options = "condensed", full_width = F, fixed_thead = TRUE)
+```
+
 
 # Exploratory Data Analysis
 
-## Loading File
+## Loading Data File
 
 ```{r}
-books_data<- read.csv ("classics.csv")
+books_data <- read.csv(here("Data", "classics.csv"))
 ```
 
 
@@ -41,19 +51,22 @@ books_data<- read.csv ("classics.csv")
 ```{r}
 dim(books_data)
 ```
- This shows that in the data there are 38 variables avilable for 1006 books. 
+ This shows that in the data there are 38 variables available for 1006 books. 
  
 
-## What are the names of the columns (i.e. the vriables we can use in our analysis)?
+## What are the names of the columns (i.e. the variables we can use in our analysis)?
 
 ```{r}
 colnames(books_data)
 ```
 
-## What is the relationship between year of publication and reading difficulty as measured by the automatic readibility index?
+
+## What is the relationship between year of publication and reading difficulty as measured by the automatic readability index?
 ```{r}
 books_data %>%
-  ggplot() +aes (bibliography.publication.year, metrics.difficulty.automated.readability.index) +geom_point() +ggtitle("Plot of Publication Year vs Readbility Difficulty")
+  ggplot(aes(bibliography.publication.year, metrics.difficulty.automated.readability.index)) +
+  geom_point() + 
+  ggtitle("Plot of Publication Year vs Readability Difficulty")
   
 ```
 
@@ -61,25 +74,37 @@ The graph does not show any significant difference in the level of difficulty in
 Publication Year.
 
 
-## What is the relationship between country of publication and average sentence length? Has the average gotten longer or shorter over time?
+## What is the relationship between average sentence length over time? Has the average gotten longer or shorter over time?
+
 ```{r}
 books_data %>%
-  ggplot() +aes (bibliography.publication.year, metrics.statistics.average.sentence.length) +geom_point() +ggtitle("Plot of Publication Year vs Sentence Length")
+  ggplot(aes(bibliography.publication.year, metrics.statistics.average.sentence.length)) +
+  geom_point() +
+  facet_wrap(vars())
+  ggtitle("Plot of Publication Year vs Sentence Length")
 ```
 
 The graph does not show any significant difference in the average length of sentences in books based on 
 Publication Year.
 
 ## Sentiment Analysis
+
+Provided in the Project Gutenberg data is a sentiment polarity score that aims to quantify the positivity or negativity of a work in general. 
+
 ```{r}
 books_data %>%
-  ggplot() +aes (bibliography.publication.year, metrics.sentiments.polarity) +geom_point() +ggtitle("Plot of Publication Year vs Sentiment Polarity")
+  ggplot(aes(bibliography.publication.year, metrics.sentiments.polarity)) +
+  geom_point() + 
+  ggtitle("Plot of Publication Year vs Sentiment Polarity")
 ```
+
+This plot does not show a relationship between publication year and sentiment polarity. 
 
 # Research Question
 
 1. Explore the changes in the prevalent sentiments and subjects in books in Project Gutenberg change based on publication year?
 2. Explore the changes in the prevalent sentiments and subjects in books in Project Gutenberg change based on author gender, location,etc.?
+
 
 # Future Analysis
 
