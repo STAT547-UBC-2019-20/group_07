@@ -5,6 +5,7 @@ date: '2020-03-02'
 output:
   html_document:
    keep_md: true
+bibliography: Milestone1_refs.bib
 ---
 
 ```{r, include=FALSE}
@@ -17,11 +18,7 @@ library(kableExtra)
 
 # Introduction 
 
-Project Gutenberg is a free online source which provides free access to more than 60,000
-books- mostly classics. Its purpose is to crete digital copies of books in the public domain and
-thus make them more accessible and foster a love of reading to new generations of readers.
-The Gutenberg project stores troves of information about each available book- including both metadata
-about the author and work itself as well as popularity, difficulty and readibility metrics for each book.
+Project Gutenberg is a free online source which provides free access to more than 60,000 books- mostly classics @project_gutenberg. Its purpose is to crete digital copies of books in the public domain and thus make them more accessible and foster a love of reading to new generations of readers. The Gutenberg project stores troves of information about each available book- including both metadata about the author and work itself as well as popularity, difficulty and readibility metrics for each book.
 
 # Data Set
 
