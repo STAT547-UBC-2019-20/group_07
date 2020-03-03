@@ -1,0 +1,39 @@
+﻿Key,List of...,Comment,Example Value
+bibliography.congress classifications,String, ,"""PR"""
+bibliography.languages,String, ,"""en"""
+bibliography.subjects,String, ,"""Sisters -- Fiction,Courtship -- Fiction,Social classes -- Fiction,England -- Fiction,Domestic fiction,Young women -- Fiction,Love stories"""
+bibliography.title,String, ,"""Pride and Prejudice"""
+bibliography.type,String, ,"""Text"""
+metadata.downloads,Integer,"The number of times this book has been downloaded from Project Gutenberg, as of the last update (circa Spring 2016).",36576
+metadata.id,Integer,"Every book on Project Gutenberg has a unique ID number. You can use this number to check the book on project gutenberg (e.g., book 110 is http://www.gutenberg.org/ebooks/110).",1342
+metadata.rank,Integer,"The rank of this book in comparison to other books on Gutenberg, measured by number of downloads. A lower rank indicatest that that book is more popular.",1
+metadata.url,String, ,"""https://www.gutenberg.org/ebooks/1342"""
+bibliography.author.birth,Integer,"The recorded birth year of the author. If their birth year is unknown, it is replaced with ""0"".",1775
+bibliography.author.death,Integer,"The recorded year of the author's death. If their death year is unknown, it is replaced with ""0"".",1817
+bibliography.author.name,String, ,"""Austen, Jane"""
+bibliography.publication.day,Integer,"The day of the month when the book was published. Notice that missing values have been coded as ""0"".",1
+bibliography.publication.full,String, ,"""June, 1998"""
+bibliography.publication.month,Integer,"The month of the year when the book was published; 1 corresponds to January, 2 to February, etc. Notice that missing values have been coded as ""0"".",6
+bibliography.publication.month name,String, ,"""June"""
+bibliography.publication.year,Integer,"The year when the book was published according to Project Gutenberg. Keep in mind that this may not be the original publication date of the work, just that particular edition of the work. Notice that missing values have been coded as ""0"".",1998
+metadata.formats.total,Integer,"Project Gutenberg makes books available in a wide variety of file formats, including raw text files, HTML web pages, audio books, etc. This field indicates the number of ways that this book is available.",8
+metadata.formats.types,String, ,"""text/plain,text/plain; charset=us-ascii,application/pdf,application/x-mobipocket-ebook,application/zip,application/rdf+xml,application/epub+zip,text/html; charset=us-ascii"""
+metrics.difficulty.automated readability index,Float,"The Automated Readability Index is a number indicating the understandability of the text. This number is an approximate US Grade Level needed to comprehend the text, calculated using the characters per word and words per sentences.",10.7
+metrics.difficulty.coleman liau index,Float,"The Coleman Liau Index is a number indicating the understandability of the text. This number is an approximate US Grade Level needed to comprehend the text, calculated using characters instead of syllables, similar to the Automated Readability Index.",10.73
+metrics.difficulty.dale chall readability score,Float,"The Dale Chall Readability Score provides a numeric gauge of the comprehension difficulty that readers come upon when reading a text. It uses a list of 3000 words that groups of fourth-grade American students could reliably understand, considering any word not on that list to be difficult. This number is an approximate US Grade Level needed to comprehend the text.",5.7
+metrics.difficulty.difficult words,Integer,"The number of words in the text that are considered ""difficult""; that is, they are not on a list of 3000 words that are considered understandable by fourth-grade American students.",9032
+metrics.difficulty.flesch kincaid grade,Float,"The ""Flesch-Kincaid Grade Level Formula"" presents a score as a U.S. grade level, making it easier to understand. It uses a similar formula to the Flesch Reading Ease measure.",7.9
+metrics.difficulty.flesch reading ease,Float,"The 'Flesch Reading Ease' uses the sentence length (number of words per sentence) and the number of syllables per word in an equation to calculate the reading ease. Texts with a very high Flesch reading Ease score (about 100) are very easy to read, have short sentences and no words of more than two syllables.",70.13
+metrics.difficulty.gunning fog,Float,The Gunning Fog Index measures the readability of English writing. The index estimates the years of formal education needed to understand the text on a first reading. The formula is calculated using the ratio of words to sentences and the percentage of words that are complex (i.e. have three or more syllables).,9.2
+metrics.difficulty.linsear write formula,Float,"Linsear Write is a readability metric for English text, purportedly developed for the United States Air Force to help them calculate the readability of their technical manuals. It was designed to calculate the United States grade level of a text sample based on sentence length and the number words used that have three or more syllables.",13.5
+metrics.difficulty.smog index,Float,"The SMOG grade is a measure of readability that estimates the years of education needed to understand a piece of writing. SMOG is the acronym derived from ""Simple Measure of Gobbledygook"". Its formula is based on the number of polysyllables (words with three or more syllables) and the number of sentences.",3.1
+metrics.sentiments.polarity,Float,Sentiment analysis attempts to determine the attitude of a speaker or a writer with respect to some topic or the overall contextual polarity of a document. Polarity in particular refers to how positive or negative the author is towards the content.,0.136713378
+metrics.sentiments.subjectivity,Float,Sentiment analysis attempts to determine the attitude of a speaker or a writer with respect to some topic or the overall contextual polarity of a document. Subjectivity (as opposed to Objectivity) in particular refers to whether the text is opinionated or attempts to stay factual.,0.522239149
+metrics.statistics.average letter per word,Float, ,4.83
+metrics.statistics.average sentence length,Float, ,18
+metrics.statistics.average sentence per word,Float, ,0.05
+metrics.statistics.characters,Integer,"Characters are letters and symbols in a text, not the number of people.",586794
+metrics.statistics.polysyllables,Integer,The number of words that have 3 or more syllables.,4603
+metrics.statistics.sentences,Integer, ,6511
+metrics.statistics.syllables,Float, ,170648.1
+metrics.statistics.words,Integer, ,121533
