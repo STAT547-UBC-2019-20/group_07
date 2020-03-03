@@ -23,9 +23,9 @@ about the author and work itself as well as popularity, difficulty and readibili
 
 # Data Set
 
-The data set which will be used in this project can be downloaded [here](https://corgis-edu.github.io/corgis/csv/classics/?fbclid=IwAR0u9jexVHzWWvP65r7sKXYw8VvKiih80BQIzPVu8HjcpsXwjxVN9n5jCeE).
-The rows represent books vailable through Project Gutenberg and the columns are attributes
-of these books- e.g. meta data and popularity metrics.
+The data set which will be used in this project is the classics.csv file which can be downloaded [here](https://corgis-edu.github.io/corgis/csv/classics/?fbclid=IwAR0u9jexVHzWWvP65r7sKXYw8VvKiih80BQIzPVu8HjcpsXwjxVN9n5jCeE).
+The rows represent individual books available through Project Gutenberg and the columns are attributes
+of these books- e.g. meta data and popularity, difficulty and readibility  metrics.
 
 # Exploratory Data Analysis
 
