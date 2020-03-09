@@ -11,7 +11,7 @@ suppressMessages(library(RCurl))
 suppressMessages(library(here))
 
 "This script loads the data necessary for our project
-Usage: clean.R --file_path=<raw_file_path> --filename=<<clean_file_path>
+Usage: clean.R --file_path=<raw_file_path> --filename=<clean_file_path>
 "-> doc
 
 #' @author Denitsa Vasileva
