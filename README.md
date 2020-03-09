@@ -6,7 +6,7 @@
   
 ## Project Description:
 
-The purpose of this project is to explore the dataset found (here)[https://corgis-edu.github.io/corgis/datasets/csv/classics/classics.csv]. 
+The purpose of this project is to explore the dataset found [here](https://corgis-edu.github.io/corgis/datasets/csv/classics/classics.csv). 
 This data set was obtained from Project Gutenberg- an online free book repository
 and contains different - meta, author, sentimentality analysis, etc.- information 
 about more than 1000 books.
