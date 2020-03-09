@@ -19,7 +19,7 @@ opt <- docopt(doc)
 
 #data url = https://corgis-edu.github.io/corgis/datasets/csv/classics/classics.csv
 
-#' @author Denitsa Vasileva
+#' @author Denitsa Vasileva & Lucy Mosquera
 #' @param  data_url data URL
 
 load_data<- function(data_url){

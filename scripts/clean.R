@@ -14,9 +14,9 @@ suppressMessages(library(here))
 Usage: clean.R --raw_file_path=<raw_file_path> --clean_file_path=<clean_file_path>
 "-> doc
 
-#' @author Denitsa Vasileva
-#' @param file_path  file path of raw file
-#' @param filename file name for new file to be saved
+#' @author Denitsa Vasileva & Lucy Mosquera
+#' @param raw_file_path  file path of raw file
+#' @param clean_file_path file name for new file to be saved
 
 # Loading command line arguments 
 opt <- docopt(doc)
