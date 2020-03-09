@@ -9,7 +9,7 @@ suppressMessages(library(glue))
 suppressMessages(library(roxygen2))
 suppressMessages(library(RCurl))
 suppressMessages(library(here))
-suppressMessages(library(corrplot))
+suppressMessages(library(ggcorrplot))
 
 "This script loads the data necessary for our project
 Usage: data_exploration.R --image_path=<image_path> --data_path=<data_path>
@@ -18,7 +18,6 @@ Usage: data_exploration.R --image_path=<image_path> --data_path=<data_path>
 #' @author Denitsa Vasileva & Lucy Mosquera
 #' @param image_path  file path of where to save the images
 #' @param data_path file name for dataset to be plotted
-
 
 # Loading command line arguments 
 opt <- docopt(doc)
@@ -34,35 +33,35 @@ exploratory <- function(image_path, data_path){
     
     # creating the first plot - a scatter plot of Publication Date vs Readability Difficulty
     books_data %>%
-      ggplot(aes(bibliography.publication.year, metrics.difficulty.automated.readability.index)) +
+      ggplot(aes(publication.year, automated.readability.index)) +
       geom_point() + 
       xlab("Publication Date")+
       ylab("Readability Difficult")+
       ggtitle("Plot of Publication Year vs Readability Difficulty")
     
-    ggsave(here(image_path, "publication_readibility.png"), plot = last_plot())
+    ggsave("publication_readibility.png", path = here(image_path), plot = last_plot())
     
     # creating second plot - a histogram of publication dates
     books_data %>%
-      ggplot(aes(bibliography.publication.year))+
+      ggplot(aes(publication.year))+
         geom_histogram(bins = 10) +
         ggtitle("Histogram of Distribution of Publication Dates of Books of Books")
     
-    ggsave(here(image_path, "publication_dates.png"), plot = last_plot())
+    ggsave("publication_dates.png", path = here(image_path), plot = last_plot())
     
     # creating third scatter plot- sentiment analysis plot of plublication year 
     # vs sentiment polarity
     books_data %>%
-      ggplot(aes(bibliography.publication.year, metrics.sentiments.polarity)) +
+      ggplot(aes(publication.year, polarity)) +
       xlab("Publication Year")+
       ylab("Sentiment Polarity")+
       geom_point() + 
       ggtitle("Plot of Publication Year vs Sentiment Polarity")
     
-    ggsave(here(image_path, "sentiment_analysis.png"), plot = last_plot())
+    ggsave("sentiment_analysis.png", path = here(image_path), plot = last_plot())
     
     # creating fourth plot- correlation plot of key continuous variables
-    books_cor <- data %>%
+    books_cor <- books_data %>%
       select(author.birth, automated.readability.index, coleman.liau.index, dale.chall.readability.score, 
              difficult.words, flesch.kincaid.grade, flesch.reading.ease, average.letter.per.word, 
              average.sentence.length, average.sentence.per.word, characters, syllables, words) %>% 
@@ -72,7 +71,7 @@ exploratory <- function(image_path, data_path){
     books_cor %>% 
       ggcorrplot(., hc.order = TRUE) +
       ggtitle("Correlations Betweeen Key \nContinuous Variables")
-    ggsave(path = here(image_path, "correlogram.png"), plot = last_plot())
+    ggsave("correlogram.png", path = here(image_path), plot = last_plot())
     print(glue("Four plots have been successfully created in {image_path}"))
 }
 }
