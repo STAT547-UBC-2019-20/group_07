@@ -1,5 +1,6 @@
 ################################ Loading data ###########################
 
+#Loading packages 
 suppressMessages(library(tidyr))
 suppressMessages(library(dplyr))
 suppressMessages(library(ggplot2))
