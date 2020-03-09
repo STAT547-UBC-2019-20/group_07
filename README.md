@@ -17,7 +17,7 @@
   - glue
   - docopt
   - roxygen2
-  -tidyr
+  - tidyr
 
 3. Run the following scripts (in order) with the appropriate arguments specified
 
