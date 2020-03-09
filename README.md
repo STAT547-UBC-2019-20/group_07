@@ -3,6 +3,13 @@
 ## Group Members:
   * Denitsa Vasileva
   * Lucy Mosquera
+  
+## Project Description:
+
+The purpose of this project is to explore the dataset found (here) [https://corgis-edu.github.io/corgis/datasets/csv/classics/classics.csv]. 
+This data set was obtained from Project Gutenberg- an online free book repository
+and contains different - meta, author, sentimentality analysis, etc.- information 
+about more than 1000 books.
 
 ## Usage:
 
@@ -17,7 +24,7 @@
   - glue
   - docopt
   - roxygen2
-  -tidyr
+  - tidyr
 
 3. Run the following scripts (in order) with the appropriate arguments specified
 
@@ -31,4 +38,4 @@
   Rscript src/script_name.r --argument_name=<argument> ... (etc)
   
   # Knit your draft final report
-  ## You will learn this next week in cm106!
+ You will learn this next week in cm106!
