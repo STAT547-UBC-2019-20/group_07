@@ -30,9 +30,9 @@ clean <- function(raw_file_path, clean_file_path){
     # Renaming a column
     colnames(data)[1]<-"Bibliography Congress Classification"
     # Removing unnecessary columns
-    data<- data[-(19)]
-    write.csv(data,row.names=FALSE,  here(clean_file_path))
-    print (glue("File {clean_file_path} Successfully written"))
+    data <- data[-(19)]
+    write.csv(data, row.names=FALSE, here(clean_file_path))
+    print (glue("File {clean_file_path} successfully written"))
   }
 }
 clean(raw_file_path = opt$raw_file_path, clean_file_path = opt$clean_file_path)
