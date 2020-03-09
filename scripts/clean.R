@@ -11,7 +11,7 @@ suppressMessages(library(RCurl))
 suppressMessages(library(here))
 
 "This script cleans the data necessary for our project
-Usage: clean.R --file_path=<raw_file_path> --filename=<clean_file_path>
+Usage: clean.R --raw_file_path=<raw_file_path> --clean_file_path=<clean_file_path>
 "-> doc
 
 #' @author Denitsa Vasileva
@@ -21,18 +21,18 @@ Usage: clean.R --file_path=<raw_file_path> --filename=<clean_file_path>
 # Loading command line arguments 
 opt <- docopt(doc)
 
-clean <- function(file_path ,filename ){
+clean <- function(raw_file_path, clean_file_path){
   # check if the file provided by the file_path argument exists
-  if (!file.exists(file_path)) {
-    print(glue("The file {file_path} is invalid"))
+  if (!file.exists(here(raw_file_path))) {
+    print(glue("The file {raw_file_path} is invalid"))
   }else{
-    data<-read.csv(file_path)
+    data<-read.csv(here(raw_file_path))
     # Renaming a column
     colnames(data)[1]<-"Bibliography Congress Classification"
     # Removing unnecessary columns
     data<- data[-(19)]
-    write.csv(data,row.names=FALSE,  here("data", filename))
-    print (glue("File {filename} Successfully written"))
+    write.csv(data,row.names=FALSE,  here(clean_file_path))
+    print (glue("File {clean_file_path} Successfully written"))
   }
 }
-clean(opt$file_path,opt$filename)
+clean(raw_file_path = opt$raw_file_path, clean_file_path = opt$clean_file_path)
