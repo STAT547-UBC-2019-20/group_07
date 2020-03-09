@@ -10,7 +10,7 @@ suppressMessages(library(roxygen2))
 suppressMessages(library(RCurl))
 suppressMessages(library(here))
 
-"This script loads the data necessary for our project
+"This script cleans the data necessary for our project
 Usage: clean.R --file_path=<raw_file_path> --filename=<clean_file_path>
 "-> doc
 
