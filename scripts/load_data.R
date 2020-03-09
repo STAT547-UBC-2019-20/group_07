@@ -8,6 +8,7 @@ suppressMessages(library(docopt))
 suppressMessages(library(glue))
 suppressMessages(library(roxygen2))
 suppressMessages(library(RCurl))
+suppressMessages(library(readr))
 suppressMessages(library(here))
 
 "This script loads the data necessary for our project
@@ -22,16 +23,20 @@ opt <- docopt(doc)
 #' @param  data_url data URL
 
 load_data<- function(data_url){
-  # checking if url is valid
-  if (!url.exists(data_url)){
-    print ("URL does not exist")
+  # checking if data can be read from provided URL
+  data <- tryCatch(read_csv(data_url), 
+           error = function(e){
+             return(NA)
+           },
+           warning = function(w){
+             return(NA)
+           })
+  if (! is.data.frame(data)){
+    print ("URL does not exist / fails to read data")
   }else{
-    # Loading the data from the URL into the dataframe data 
-    url<- getURL(data_url)
-    data<-read.csv(text=url, header=TRUE)
     # Writing the data as a csv file
     write.csv(data,row.names=FALSE, here("data","classics_raw_data.csv"))
-  print ( "Data has been successfully loaded in the Data directory")}
+    print ( "Data has been successfully loaded in the Data directory")}
 }
 
-load_data(opt$data_url)
+load_data(data_url = opt$data_url)
