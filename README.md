@@ -25,17 +25,19 @@ about more than 1000 books.
   - docopt
   - roxygen2
   - tidyr
+  - ggcorrplot
+  - readr
 
-3. Run the following scripts (in order) with the appropriate arguments specified
+3. Run the following scripts (in order) with the appropriate arguments specified:
 
   # Download data
-  Rscript scripts/load_data.r --data_url=<https://corgis-edu.github.io/corgis/datasets/csv/classics/classics.csv>
+  Rscript scripts/load_data.r --data_url="https://corgis-edu.github.io/corgis/datasets/csv/classics/classics.csv"
   
   # Wrangle/clean/process your data 
-  Rscript scripts/clean.r --file_path=<raw_file_path> --filename=<clean_file_path>
+  Rscript scripts/clean.r --raw_file_path="data/classics_raw_data.csv" --clean_file_path="data/classics_clean.csv"
   
   # EDA script to export images
-  Rscript src/script_name.r --argument_name=<argument> ... (etc)
+  Rscript scripts/data_exploration.R --image_path="images" --data_path="data/classics_clean.csv"  
   
   # Knit your draft final report
  You will learn this next week in cm106!
