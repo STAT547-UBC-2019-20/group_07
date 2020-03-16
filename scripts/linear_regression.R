@@ -24,9 +24,10 @@ linear_regression<- function(){
     ggplot(aes(x= publication.year,y=polarity))+geom_smooth(method = "lm")+  theme_bw() + geom_point()+
     xlab("Publication Year") +
     ylab("Polarity") 
-    print(model)
     ggsave(file= here("images","year_polarity.pdf"))
-    saveRDS(model, file = here("data","model.rds"))
+    saveRDS(tidy(model), file = here("data","tidy_model.rds"))
+    saveRDS(augment(model), file=here("data","augment_model.rds") )
+    saveRDS(glance(model), file=here("data","glance_model.rds") )
 }
 linear_regression()
 
