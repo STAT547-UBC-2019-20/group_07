@@ -51,4 +51,6 @@ about more than 1000 books. The most recent version of our report is available [
   ```
   
   ### Knit your draft final report
- You will learn this next week in cm106!
+```
+Rscript scripts/knit.R --final_report="scripts/report.RMD"
+```
