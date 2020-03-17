@@ -1,9 +1,9 @@
 ---
 title: "Final Report (milestone_03)"
-author: "Denitsa Vasileva"
+author: "Denitsa Vasileva & Lucy Mosquera"
 date: '2020-03-15'
 output:
-  html_document:
+  bookdown::html_document2:
     keep_md: true
     toc: true
 
@@ -36,44 +36,45 @@ Project Gutenberg is a free online source which provides free access to more tha
 
 # Exploratory Data Analysis
 
-## Loading Data File
-
-```{r}
-books_data <- read.csv(here("Data", "classics_clean.csv"))
+```{r readData, echo = FALSE}
+books_data <- read.csv(here("data", "classics_clean.csv"))
 ```
 
-
-## How many observations do we have?
-
-```{r}
-x <- dim(books_data)
-```
-This shows that in the data there are `r x[2]` variables available for `r x[1]`  books. 
- 
 
 ## What are the names of the columns (i.e. the variables we can use in our analysis)?
 
 The variables have the following names:
+
 `r c(colnames(books_data))`
 
-## What is the distrivution of years of publication for the books in Project Gutenberg?
+## What is the distribution of years of publication for the books in Project Gutenberg?
 
-![Publication year distribution histogram](../images/publication_dates.png)
+Figure \@ref(fig:histPubDate) shows the publication dates for the `r nrow(books_data)` books present in the Project Guttenberg dataset. From this figure we can see that there are some older books, and then a large cluster of books from the 2000's.
+
+```{r histPubDate, fig.cap = "Histogram of publication year for all books on Project Guttenberg.", echo = FALSE, out.width = "50%"}
+include_graphics(path = here("images", "publication_dates.png"))
+```
+
+## What are the correlations between key variables of reading difficulty and text structure? 
+
+```{r correlogram, fig.cap = "Correlogram of the correlation between key variables", echo = FALSE, out.width = "50%"}
+include_graphics(path = here("images", "correlogram.png"))
+``` 
 
 ## What is the relationship between year of publication and reading difficulty as measured by the automatic readability index?
-![ Year of Publication vs Reading Difficulty](../images/publication_readibility.png)
+
+```{r yearReadability, fig.cap = "Scatter plot of readability difficulty vs publication year.", echo = FALSE, out.width = "50%"}
+include_graphics(path = here("images", "publication_readibility.png"))
+```
+
 The graph does not show any significant difference in the level of difficulty in books based on 
-Publication Year.
-
-## What is the relationship between average sentence length over time? Has the average gotten longer or shorter over time?
-![ Year of Publication vs Length of Sentence](../images/publication_readibility.png)
-
-The graph does not show any significant difference in the average length of sentences in books based on 
 Publication Year.
 
 ## Sentiment Analysis
 
-![ Year of Publication vs Sentimentality](../images/sentiment_analysis.png)
+```{r sentimentYear, fig.cap = "Scatterplot of sentiment vs publication year", echo = FALSE, out.width = "50%"}
+include_graphics(path = here("images", "sentiment_analysis.png"))
+``` 
 
 Provided in the Project Gutenberg data is a sentiment polarity score that aims to quantify the positivity or negativity of a work in general. 
 This plot does not show a relationship between publication year and sentiment polarity.
@@ -90,15 +91,21 @@ The linear model of the year of publication vs the sentimentality index for
 each book.
 ```{r}
 model<-readRDS(here("data","tidy_model.rds"))
+
 print(model)
 ```
 The table above  shows the parameters of the linear regression model:
 
 The linear regression plot can be seen below:
 
-![ Year of Publication vs Polarity](../images/year_polarity.pdf)
+```{r polarityYear, fig.cap = "Scatterplot of year vs polarity.", echo = FALSE, out.width = "50%"}
+include_graphics(path = here("images", "year_polarity.png"))
+``` 
+
 
 
 
 Linear Model for the 
+
 # Discussion and Conclusions
+

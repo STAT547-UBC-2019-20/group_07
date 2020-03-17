@@ -51,7 +51,7 @@ linear_regression<- function(clean_data_path, output_path_image, output_path_mod
         geom_point() +
         xlab("Publication Year") +
         ylab("Polarity") 
-    ggsave(file= here(output_path_image,"year_polarity.pdf"))
+    ggsave(file= here(output_path_image,"year_polarity.png"))
     
     ## Save the various model forms
     saveRDS(tidy(model), file = here(output_path_model,"tidy_model.rds"))

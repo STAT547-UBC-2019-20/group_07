@@ -1,9 +1,9 @@
 ---
 title: "Final Report (milestone_03)"
-author: "Denitsa Vasileva"
+author: "Denitsa Vasileva & Lucy Mosquera"
 date: '2020-03-15'
 output:
-  html_document:
+  bookdown::html_document2:
     keep_md: true
     toc: true
 
@@ -29,46 +29,47 @@ Project Gutenberg is a free online source which provides free access to more tha
 
 # Exploratory Data Analysis
 
-## Loading Data File
 
 
-```r
-books_data <- read.csv(here("Data", "classics_clean.csv"))
-```
-
-
-## How many observations do we have?
-
-
-```r
-x <- dim(books_data)
-```
-This shows that in the data there are 48 variables available for 1006  books. 
- 
 
 ## What are the names of the columns (i.e. the variables we can use in our analysis)?
 
 The variables have the following names:
+
 congress.classifications, languages, subjects, title, type, downloads, id, rank, url, author.birth, author.death, author.name, publication.day, publication.full, publication.month, publication.month.name, publication.year, formats.total, formats.types, automated.readability.index, coleman.liau.index, dale.chall.readability.score, difficult.words, flesch.kincaid.grade, flesch.reading.ease, gunning.fog, linsear.write.formula, smog.index, polarity, subjectivity, average.letter.per.word, average.sentence.length, average.sentence.per.word, characters, polysyllables, sentences, syllables, words, language.en, language.de, language.es, language.fr, language.it, language.la, language.nl, language.pt, language.ru, language.tl
 
-## What is the distrivution of years of publication for the books in Project Gutenberg?
+## What is the distribution of years of publication for the books in Project Gutenberg?
 
-![Publication year distribution histogram](../images/publication_dates.png)
+Figure \@ref(fig:histPubDate) shows the publication dates for the 1006 books present in the Project Guttenberg dataset. From this figure we can see that there are some older books, and then a large cluster of books from the 2000's.
+
+<div class="figure">
+<img src="C:/Users/hp/Documents/STAT547M/group_07/images/publication_dates.png" alt="Histogram of publication year for all books on Project Guttenberg." width="50%" />
+<p class="caption">(\#fig:histPubDate)Histogram of publication year for all books on Project Guttenberg.</p>
+</div>
+
+## What are the correlations between key variables of reading difficulty and text structure? 
+
+<div class="figure">
+<img src="C:/Users/hp/Documents/STAT547M/group_07/images/correlogram.png" alt="Correlogram of the correlation between key variables" width="50%" />
+<p class="caption">(\#fig:correlogram)Correlogram of the correlation between key variables</p>
+</div>
 
 ## What is the relationship between year of publication and reading difficulty as measured by the automatic readability index?
-![ Year of Publication vs Reading Difficulty](../images/publication_readibility.png)
+
+<div class="figure">
+<img src="C:/Users/hp/Documents/STAT547M/group_07/images/publication_readibility.png" alt="Scatter plot of readability difficulty vs publication year." width="50%" />
+<p class="caption">(\#fig:yearReadability)Scatter plot of readability difficulty vs publication year.</p>
+</div>
+
 The graph does not show any significant difference in the level of difficulty in books based on 
-Publication Year.
-
-## What is the relationship between average sentence length over time? Has the average gotten longer or shorter over time?
-![ Year of Publication vs Length of Sentence](../images/publication_readibility.png)
-
-The graph does not show any significant difference in the average length of sentences in books based on 
 Publication Year.
 
 ## Sentiment Analysis
 
-![ Year of Publication vs Sentimentality](../images/sentiment_analysis.png)
+<div class="figure">
+<img src="C:/Users/hp/Documents/STAT547M/group_07/images/sentiment_analysis.png" alt="Scatterplot of sentiment vs publication year" width="50%" />
+<p class="caption">(\#fig:sentimentYear)Scatterplot of sentiment vs publication year</p>
+</div>
 
 Provided in the Project Gutenberg data is a sentiment polarity score that aims to quantify the positivity or negativity of a work in general. 
 This plot does not show a relationship between publication year and sentiment polarity.
@@ -86,6 +87,7 @@ each book.
 
 ```r
 model<-readRDS(here("data","tidy_model.rds"))
+
 print(model)
 ```
 
@@ -100,9 +102,15 @@ The table above  shows the parameters of the linear regression model:
 
 The linear regression plot can be seen below:
 
-![ Year of Publication vs Polarity](../images/year_polarity.pdf)
+<div class="figure">
+<img src="C:/Users/hp/Documents/STAT547M/group_07/images/year_polarity.png" alt="Scatterplot of year vs polarity." width="50%" />
+<p class="caption">(\#fig:polarityYear)Scatterplot of year vs polarity.</p>
+</div>
+
 
 
 
 Linear Model for the 
+
 # Discussion and Conclusions
+
