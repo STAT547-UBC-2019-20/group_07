@@ -53,9 +53,9 @@ about more than 1000 books. The most recent version of our report is available [
   ```
   
   ### Knit your draft final report
-```
-Rscript scripts/knit.R --final_report="scripts/report.RMD"
-```
+  ```
+  Rscript scripts/knit.R --final_report="scripts/report.RMD" --report_dir="docs"
+  ```
 
 ## Usage for GNU Make
 
