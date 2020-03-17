@@ -13,13 +13,19 @@ suppressMessages(library(broom))
 suppressMessages(library(here))
 
 "This script performs linear regression
-Usage: linear_regression.R  
+Usage: linear_regression.R --clean_data_path=<clean_data_path> --output_path=<output_path>
 "-> doc
 
 linear_regression<- function(){
   # Read-in cleaned data file
-  data<- read.csv(here("data","classics_clean.csv"))
-  model<- lm(data$polarity ~ data$publication.year)
+  if (file.exists(here(clean_data_path))){
+    data <- read.csv(here(clean_data_path))
+  } else{
+    print(glue("Invalid clean data path: {clean_data_path}"))
+  } else if (!dir.exists(here(output_path))){ # check if output_path exists 
+    print(glue("Invalid image directory path: {output_path}"))
+  } else{
+    model<- lm(data$polarity ~ data$publication.year)
   data %>%
     ggplot(aes(x= publication.year,y=polarity))+geom_smooth(method = "lm")+  theme_bw() + geom_point()+
     xlab("Publication Year") +
@@ -28,6 +34,7 @@ linear_regression<- function(){
     saveRDS(tidy(model), file = here("data","tidy_model.rds"))
     saveRDS(augment(model), file=here("data","augment_model.rds") )
     saveRDS(glance(model), file=here("data","glance_model.rds") )
+  }
 }
 linear_regression()
 
