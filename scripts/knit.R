@@ -1,11 +1,11 @@
 "Script to knit the final report.
 Usage: knit.R --final_report=<report>" -> doc
 
-# laod packages
-library(docopt)
-library(rmarkdown)
-library(glue)
-library(bookdown)
+# load packages
+suppressMessages(library(docopt))
+suppressMessages(library(rmarkdown))
+suppressMessages(library(glue))
+suppressMessages(library(bookdown))
 
 opt <- docopt(doc)
 
@@ -17,8 +17,10 @@ knit_report <- function(report){
   if(!file.exists(report)) {
     stop(glue("Report file {report} not found"))
   }
-  # knit reprot file
-  rmarkdown::render(report, c("bookdown::pdf_document2"))
+  # knit report file
+  rmarkdown::render(report, c("bookdown::pdf_document2", "bookdown::html_document2"))
+  # print completion statement
+  print("Rmarkdown file knit successfully!")
 }
 
 

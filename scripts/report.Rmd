@@ -49,63 +49,59 @@ The variables have the following names:
 
 ## What is the distribution of years of publication for the books in Project Gutenberg?
 
-Figure \@ref(fig:histPubDate) shows the publication dates for the `r nrow(books_data)` books present in the Project Guttenberg dataset. From this figure we can see that there are some older books, and then a large cluster of books from the 2000's.
-
-```{r histPubDate, fig.cap = "Histogram of publication year for all books on Project Guttenberg.", echo = FALSE, out.width = "50%"}
+```{r histPubDate, fig.cap = "Histogram of publication year for all books on Project Guttenberg.", echo = FALSE, out.width = "40%", fig.align='center'}
 include_graphics(path = here("images", "publication_dates.png"))
 ```
 
+Figure \@ref(fig:histPubDate) shows the publication dates for the `r nrow(books_data)` books present in the Project Guttenberg dataset. From this figure we can see that there are some older books, and then a large cluster of books from the 2000's.
+
 ## What are the correlations between key variables of reading difficulty and text structure? 
 
-```{r correlogram, fig.cap = "Correlogram of the correlation between key variables", echo = FALSE, out.width = "50%"}
+```{r correlogram, fig.cap = "Correlogram of the correlation between key variables", echo = FALSE, out.width = "40%", fig.align='center'}
 include_graphics(path = here("images", "correlogram.png"))
 ``` 
 
+Figure \@ref(fig:correlogram) shows the correlation between different key variables that describe the books as well as characterize their difficulty using metrics. In this figure we can see that there fairly high positive correlation between the number of words, number of characters, number of syllables, and number of hard words in a book as well as between the average sentence length, automated readability index, and Flesch Kincaid grade. There are also reasonably strong negative correlations between average sentence length, automated readability index, Flesch Kincaid grade and the average number of sentences per word and the Flesch reading ease index.
+
 ## What is the relationship between year of publication and reading difficulty as measured by the automatic readability index?
 
-```{r yearReadability, fig.cap = "Scatter plot of readability difficulty vs publication year.", echo = FALSE, out.width = "50%"}
+```{r yearReadability, fig.cap = "Scatter plot of readability difficulty vs publication year.", echo = FALSE, out.width = "40%", fig.align='center'}
 include_graphics(path = here("images", "publication_readibility.png"))
 ```
 
-The graph does not show any significant difference in the level of difficulty in books based on 
-Publication Year.
+Figure \@ref(fig:yearReadability) plots the readability score against the year of publication. This graph does not show any significant difference in the level of difficulty in books based on Publication Year.
 
 ## Sentiment Analysis
 
-```{r sentimentYear, fig.cap = "Scatterplot of sentiment vs publication year", echo = FALSE, out.width = "50%"}
+```{r sentimentYear, fig.cap = "Scatterplot of sentiment vs publication year", echo = FALSE, out.width = "40%", fig.align='center'}
 include_graphics(path = here("images", "sentiment_analysis.png"))
 ``` 
 
-Provided in the Project Gutenberg data is a sentiment polarity score that aims to quantify the positivity or negativity of a work in general. 
-This plot does not show a relationship between publication year and sentiment polarity.
-
+Provided in the Project Gutenberg data is a sentiment polarity score that aims to quantify the positivity or negativity of a work in general. Figure \@ref(fig:sentimentYear) shows these sentiment scores against the publication year. This plot does not show a relationship between publication year and sentiment polarity.
 
 # Analysis
 In order to answer our research questions, we used linear regression.
-To answer the first question, we implemented a linear regression model on the sentimentality index of each book compared to the publication year.We also used linear regression to examine the correlation between the 
-popularity of a book (i.e. number of times it has been downloaded) and the year of publication.
 
+To answer the first question, we implemented a linear regression model on the sentimentality index of each book compared to the publication year. 
 
 # Results
-The linear model of the year of publication vs the sentimentality index for 
-each book.
-```{r}
-model<-readRDS(here("data","tidy_model.rds"))
 
-print(model)
+The results of the linear model of the year of publication vs the sentimentality index for each book can be seen in Table \@ref(tab:modelOutput).
+
+```{r modelOutput, echo = FALSE}
+model <- readRDS(here("data","tidy_model.rds"))
+
+kable(model, caption = "Coefficient estimates, standard error, test statistics, and p-value for linear regression of year of publication predicting sentiment index values using the Project Guttenberg data.")
 ```
-The table above  shows the parameters of the linear regression model:
 
-The linear regression plot can be seen below:
+The scatter plot of sentimentality index vs year with the resulting linear regression superimposed can be seen in Figure \@ref(fig:polarityYear).
 
-```{r polarityYear, fig.cap = "Scatterplot of year vs polarity.", echo = FALSE, out.width = "50%"}
+```{r polarityYear, fig.cap = "Scatterplot of year vs polarity.", echo = FALSE, out.width = "50%", fig.align='center'}
 include_graphics(path = here("images", "year_polarity.png"))
 ``` 
 
-
-
-
-Linear Model for the 
+This regression shows tha t the publication year is a significant predictor of the sentimentality index (p value = `r round(model$p.value[[2]], 4)`). The coefficient for the publication year is a negative value, indicating that newer books are more negative in their general sentiment than older books (coeff = `r round(model$estimate[[2]], 4)`), although the magnitude of this coefficient is quite small indicating a small but significant effect.
 
 # Discussion and Conclusions
 
+Throughout this analysis we have explored the Project Guttenberg classics dataset and gained valuable insights. We have shown that the sentiment or overall tone of newer books is marginally more negative than older books. 
