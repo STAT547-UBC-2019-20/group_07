@@ -11,7 +11,7 @@ This data set was obtained from Project Gutenberg- an online free book repositor
 and contains different - meta, author, sentimentality analysis, etc.- information 
 about more than 1000 books. The most recent version of our report is available [here](https://github.com/STAT547-UBC-2019-20/group_07/blob/master/docs/Milestone1.md)
 
-## Usage:
+## Usage for Command Line:
 
 1. Clone this repo. https://github.com/STAT547-UBC-2019-20/group_07.git
 
@@ -56,3 +56,22 @@ about more than 1000 books. The most recent version of our report is available [
 ```
 Rscript scripts/knit.R --final_report="scripts/report.RMD"
 ```
+
+## Usage for GNU Make
+
+1. Clone this repo. https://github.com/STAT547-UBC-2019-20/group_07.git
+
+2. Ensure the following packages are installed:
+
+  - ggplot2
+  - dplyr
+  - RCurl
+  - here
+  - glue
+  - docopt
+  - roxygen2
+  - tidyr
+  - ggcorrplot
+  - readr
+  - knitr
+  - broom 
