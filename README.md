@@ -27,6 +27,8 @@ about more than 1000 books. The most recent version of our report is available [
   - tidyr
   - ggcorrplot
   - readr
+  - knitr
+  - broom 
 
 3. Run the following scripts (in order) with the appropriate arguments specified:
 
