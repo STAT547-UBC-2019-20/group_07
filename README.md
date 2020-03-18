@@ -9,7 +9,7 @@
 The purpose of this project is to explore the dataset found [here](https://corgis-edu.github.io/corgis/datasets/csv/classics/classics.csv). 
 This data set was obtained from Project Gutenberg- an online free book repository
 and contains different - meta, author, sentimentality analysis, etc.- information 
-about more than 1000 books. The most recent version of our report is available [here](https://github.com/STAT547-UBC-2019-20/group_07/blob/master/docs/Milestone1.md)
+about more than 1000 books. The most recent version of our report is available [here](https://github.com/STAT547-UBC-2019-20/group_07/blob/master/docs/report.md).
 
 ## Usage for Command Line:
 
@@ -75,3 +75,5 @@ about more than 1000 books. The most recent version of our report is available [
   - readr
   - knitr
   - broom 
+  
+ 3. make all
