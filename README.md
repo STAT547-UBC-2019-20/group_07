@@ -76,4 +76,13 @@ about more than 1000 books. The most recent version of our report is available [
   - knitr
   - broom 
   
- 3. make all
+ 3. To run the analysis in its entirety, run the following in the command line
+ 
+ ```
+ make all
+ ```
+ 
+ 4. To delete the outputs of the analysis run
+ ```
+ make clean 
+ ```
