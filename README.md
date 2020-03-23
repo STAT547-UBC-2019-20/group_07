@@ -86,3 +86,13 @@ about more than 1000 books. The most recent version of our report is available [
  ```
  make clean 
  ```
+
+## Dashboard Proposal
+
+### Description
+
+This dashboard aims to facilitate the main research question of ...
+
+### Usage 
+
+An example of how someone would use this dashboard would be...
