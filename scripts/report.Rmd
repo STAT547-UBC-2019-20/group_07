@@ -46,7 +46,7 @@ books_data <- read.csv(here("data", "classics_clean.csv"))
 The variables have the following names:
 
 ```{r colNamePrint, echo=FALSE, results='asis'}
-colNames <- list(x = c('a', 'b', 'c'), y = c('d', 'e'))
+colNames <- colnames(books_data)
 
 for (name in colNames) {
     cat("-", name, '\n')
