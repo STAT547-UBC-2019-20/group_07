@@ -34,7 +34,7 @@ exploratory <- function(image_path, data_path){
     # creating the first plot - a scatter plot of Publication Date vs Readability Difficulty
     books_data %>%
       ggplot(aes(publication.year, automated.readability.index)) +
-      geom_point() + 
+      geom_jitter() + 
       xlab("Publication Date")+
       ylab("Readability Difficult")+
       ggtitle("Plot of Publication Year vs Readability Difficulty")
@@ -55,7 +55,7 @@ exploratory <- function(image_path, data_path){
       ggplot(aes(publication.year, polarity)) +
       xlab("Publication Year")+
       ylab("Sentiment Polarity")+
-      geom_point() + 
+      geom_jitter() + 
       ggtitle("Plot of Publication Year vs Sentiment Polarity")
     
     ggsave("sentiment_analysis.png", path = here(image_path), plot = last_plot())
