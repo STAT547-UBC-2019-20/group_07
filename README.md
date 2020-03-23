@@ -34,12 +34,12 @@ about more than 1000 books. The most recent version of our report is available [
 
   ### Download data
   ```
-  Rscript scripts/load_data.r --data_url="https://corgis-edu.github.io/corgis/datasets/csv/classics/classics.csv"
+  Rscript scripts/load_data.R --data_url="https://corgis-edu.github.io/corgis/datasets/csv/classics/classics.csv"
   ```
   
   ### Wrangle/clean/process your data 
   ```
-  Rscript scripts/clean.r --raw_file_path="data/classics_raw_data.csv" --clean_file_path="data/classics_clean.csv"
+  Rscript scripts/clean.R --raw_file_path="data/classics_raw_data.csv" --clean_file_path="data/classics_clean.csv"
   ```
   
   ### EDA script to export images
@@ -49,7 +49,7 @@ about more than 1000 books. The most recent version of our report is available [
   
   ### Linear regression
   ```
-  RScript scripts/linear_regression.r --clean_data_path="data/classics_clean.csv" --output_path_image="images" --output_path_model="data"
+  RScript scripts/linear_regression.R --clean_data_path="data/classics_clean.csv" --output_path_image="images" --output_path_model="data"
   ```
   
   ### Knit your draft final report
