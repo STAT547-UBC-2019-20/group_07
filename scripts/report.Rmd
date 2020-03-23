@@ -45,7 +45,13 @@ books_data <- read.csv(here("data", "classics_clean.csv"))
 
 The variables have the following names:
 
-`r c(colnames(books_data))`
+```{r colNamePrint, echo=FALSE, results='asis'}
+colNames <- list(x = c('a', 'b', 'c'), y = c('d', 'e'))
+
+for (name in colNames) {
+    cat("-", name, '\n')
+}
+```
 
 ## What is the distribution of years of publication for the books in Project Gutenberg?
 
