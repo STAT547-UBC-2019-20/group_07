@@ -18,7 +18,7 @@ app <- Dash$new()
 app$layout(
 	htmlDiv(
 		list(
-			htmlH1(children="Milestone 4: The Placeholder"),
+			htmlH1(children="Project Gutenberg Book Analysis"),
 		)
 	)
 )
