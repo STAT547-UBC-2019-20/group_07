@@ -106,9 +106,11 @@ make_plot2 <- function(maxRank = 1, minRank = 1006){
 		ggplot(aes(x = reorder(Var1, Freq), y = Freq, fill = reorder(Var1, Freq))) +
 		geom_col(show.legend = FALSE) + 
 		coord_flip() +
+		xlab("") +
+		ylab("Frequency") + 
 		scale_colour_gradientn(colours = rainbow(20)) +
 		theme_classic() 
-	ggplotly(plot2)
+	ggplotly(plot2, width = 1000, height = 400)
 }
 
 make_text <- function(maxRank = 1, minRank = 1006){
