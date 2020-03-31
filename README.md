@@ -29,6 +29,8 @@ about more than 1000 books. The most recent version of our report is available [
   - readr
   - knitr
   - broom 
+  - stringr
+  - wordcloud
 
 3. Run the following scripts (in order) with the appropriate arguments specified:
 
@@ -39,7 +41,7 @@ about more than 1000 books. The most recent version of our report is available [
   
   ### Wrangle/clean/process your data 
   ```
-  Rscript scripts/clean.R --raw_file_path="data/classics_raw_data.csv" --clean_file_path="data/classics_clean.csv"
+  Rscript scripts/clean.R --raw_file_path="data/classics_raw_data.csv" --clean_file_path="data/"
   ```
   
   ### EDA script to export images
@@ -75,6 +77,8 @@ about more than 1000 books. The most recent version of our report is available [
   - readr
   - knitr
   - broom 
+  - stringr
+  - wordcloud
   
  3. To run the analysis in its entirety, run the following in the command line
  
