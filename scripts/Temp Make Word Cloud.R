@@ -34,6 +34,6 @@ subjectCounts <- as.data.frame(table(longDesc %>% filter(! str_detect(Desc, "Fic
 																		 	pull(Desc)))
 
 wordcloud(words = subjectCounts$Var1, freq = subjectCounts$Freq, min.freq = 3,
-					max.words=50, random.order=FALSE, rot.per=0.35, 
+					max.words=30, random.order=FALSE, rot.per=0, 
 					colors=brewer.pal(8, "Dark2"))
 

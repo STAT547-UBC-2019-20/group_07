@@ -26,10 +26,10 @@ clean <- function(raw_file_path, clean_file_path){
   if (!file.exists(here(raw_file_path))) {
     print(glue("The file {raw_file_path} is invalid"))
   }else{
-    data<-read.csv(here(raw_file_path))
+    book_data <- read.csv(here(raw_file_path))
     # Renaming a columns to remove the "bibliography.", "metrics.statistics",
     # "metrics.difficulty", "metadata", and "metrics.sentiments" prefixes
-    data <- data %>% 
+    clean_data <- book_data %>% 
       rename_at(.vars = vars(starts_with("bibliography.")),
                 .funs = ~ sub("bibliography.", "", .)) %>% 
       rename_at(.vars = vars(starts_with("metrics.statistics.")),
@@ -52,8 +52,28 @@ clean <- function(raw_file_path, clean_file_path){
              language.ru = if_else(languages == "ru", 1, 0),
              language.tl = if_else(languages == "tl", 1, 0)
              )
-    write.csv(data, row.names=FALSE, here(clean_file_path))
-    print (glue("File {clean_file_path} successfully written"))
+    write.csv(clean_data, row.names=FALSE, here(clean_file_path, "classics_clean.csv"))
+    # Prepare data for app
+    #Reshaping data for word cloud, want key value pairs of rank and then each descriptor as a single row
+    booksWDesc <- book_data %>% filter(! is.na(subjects))
+    longList <- apply(booksWDesc , MARGIN = 1, function(x){
+      rankVal <- x[["rank"]]
+      tempDesc <- trimws(unlist(strsplit(trimws(unlist(strsplit(as.character(x[["subjects"]]), "--"))),
+                                         ";")))
+      tempDesc <- unique(tempDesc)
+      desc <- as.vector(sapply(tempDesc, function(x){
+        if (substr(x, start = 1, stop = 7) == "Fiction"){
+          if (stringr::str_length(x) == 7){
+            x } else {substr(x, start = 9, stop = stringr::str_length(x))}
+        } else (x)
+      }))
+      data.frame("Rank" = rep(rankVal, length(desc)),
+                 "Desc" = desc)
+    })
+    longDesc <- dplyr::bind_rows(longList)
+    write.csv(longDesc, row.names=FALSE, here(clean_file_path, "classics_word_cloud.csv"))
+    
+    print(glue("Files successfully written to {clean_file_path}"))
   }
 }
 clean(raw_file_path = opt$raw_file_path, clean_file_path = opt$clean_file_path)

@@ -6,17 +6,19 @@
 Usage: app.R
 "
 
-# Libraries
+# Load libraries quietly
+suppressPackageStartupMessages(library(dash))
+suppressPackageStartupMessages(library(dashCoreComponents))
+suppressPackageStartupMessages(library(dashHtmlComponents))
+suppressPackageStartupMessages(library(plotly))
+suppressPackageStartupMessages(library(here))
+suppressPackageStartupMessages(library(purrr))
+suppressPackageStartupMessages(library(dplyr))
 
-library(dash)
-library(dashCoreComponents)
-library(dashHtmlComponents)
-library(plotly)
-library(here)
-library(purrr)
-
+# Initialize new app
 app <- Dash$new()
 
+# App Description Text
 md <- dccMarkdown("
 
 **Welcome to our Dashboard**! 
@@ -34,48 +36,67 @@ statistics and plots of the semantic and thematic variables
 of the selected plots.
                              ")
 
+## Read in raw data
 book.data <- read.csv(here("Data","classics_clean.csv"))
 
-book.data<-book.data %>%
-  mutate(popularity=ifelse(rank %in% 1:200,"Highly Popular",ifelse(rank 
-                                                                   %in% 201:400,"Popular", ifelse(rank %in% 401:600, "Somewhat Popular",ifelse(rank %in% 601:800,"Not  Very Popular",ifelse(rank %in% 801:1006, "Not Popular", "Does Not Exist"))))))
 
 
-book.data$popularity<-as.factor(book.data$popularity)
-levels_rank<- levels(book.data$popularity)
-slider_values<-seq_along(levels_rank)
-slider_labels<- map(levels_rank, function(x) x)
-names(slider_labels)<-slider_values
-
-
-
-
-slider<-dccSlider(id="my-slider",
-                  min = 1,
-                  max = 1006,
-                  step = 200,
-                  marks= list('200'='Highly Popular','400'='Popular','600'='Somewhat Popular','800'='Not Very Popular','1006'='Not Popular'),
-                  value=200
+slider <- dccRangeSlider(
+	id='popSlider',
+	min=1,
+	max=1006,
+	step=1,
+	value=list(1, 1006),
+	pushable = 10, 
+	marks = list(
+		"1" = list("label" = "#1"),
+		"100" = list("label" = "#100"),
+		"200" = list("label" = "#200"),
+		"300" = list("label" = "#300"),
+		"400" = list("label" = "#400"),
+		"500" = list("label" = "#500"),
+		"600" = list("label" = "#600"),
+		"700" = list("label" = "#700"),
+		"800" = list("label" = "#800"),
+		"900" = list("label" = "#900"),
+		"1000" = list("label" = "#1000"))
 )
 
-popularity_data<- unique(book.data$popularity)
-yaxisKey <- tibble(label = (unique(popularity_data)),
-                   value = (unique(popularity_data)))
-yaxisDropdown<-dccDropdown( id = "popularity",
-                            options = map(
-                              1:nrow(yaxisKey), function(i){
-                                list(label=yaxisKey$label[i], value=yaxisKey$value[i])
-                              }),
-                            value = "popularity")
 
 
 
 app$layout(
 	htmlDiv(
 		list(
-			htmlH1(children="Project Gutenberg Book Analysis"),md,slider,yaxisDropdown
-		)
-	)
-)
+			htmlH1(children="Project Gutenberg Book Analysis"),
+			md,
+			slider,
+			htmlDiv(list(
+				md,
+				dccTabs(id = "tabs", children = list(
+					dccTab(label = "Word-Cloud", children = list(
+						htmlLabel("Word cloud of themes"),
+					  dccMarkdown('Please select the clarity of diamonds to view:')
+						)),
+					dccTab(label = "Bar-Chart", children = list(
+						htmlLabel("Bar chart of themes"),
+						dccMarkdown('Please select the clarity of diamonds to view:')
+						))
+					))
+			), style = list('columnCount'=2,
+											'display'='flex'))
+			)
+	))
+
+
+app$callback(
+	#update summary info
+	output=list(id = 'histogram', property = 'figure'),
+	#based on values diamond clarity from drop down
+	params=list(input(id = 'popSlider', property='value')),
+	#this translates your list of params into function arguments
+	function(popSlider) {
+		make_plot1(dataSubset = histSubset, scale = yaxisType)
+	})
 
 app$run_server(debug=TRUE)
