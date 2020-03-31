@@ -55,7 +55,7 @@ clean <- function(raw_file_path, clean_file_path){
     write.csv(clean_data, row.names=FALSE, here(clean_file_path, "classics_clean.csv"))
     # Prepare data for app
     #Reshaping data for word cloud, want key value pairs of rank and then each descriptor as a single row
-    booksWDesc <- book_data %>% filter(! is.na(subjects))
+    booksWDesc <- clean_data %>% filter(! is.na(subjects))
     longList <- apply(booksWDesc , MARGIN = 1, function(x){
       rankVal <- x[["rank"]]
       tempDesc <- trimws(unlist(strsplit(trimws(unlist(strsplit(as.character(x[["subjects"]]), "--"))),
