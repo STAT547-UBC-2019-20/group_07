@@ -31,9 +31,12 @@ examining the structural and semantic attributes of the books by _popularity_.
 You can visit the **Project Gutenberg** website [here](https://www.gutenberg.org). 
 
 To use our dashboard, use the slider to select 
-a group of books by popularity. Then you can see 
-statistics and plots of the semantic and thematic variables
-of the selected plots.
+a group of 200 books by decreasing popularity. Then,on the
+left hand side, the user can see 
+statistics of semantic and thematic variables
+of the selected group of books. In the center, the user can see the
+most common subjects in the books selected by either a 
+bar chart or a word cloud (by selecting the appropriate tab).
                              ")
 
 ## Read in raw data
