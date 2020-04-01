@@ -27,10 +27,8 @@ md <- dccMarkdown("
 
 The purpose of this dashboard is to explore the
 selection of books available in **Project Gutenberg**. Specifically, we are 
-examining the semantic and thematic attributes of the books by _popularity_.
+examining the structural and semantic attributes of the books by _popularity_.
 You can visit the **Project Gutenberg** website [here](https://www.gutenberg.org). 
-
-** Usage **
 
 To use our dashboard, use the slider to select 
 a group of books by popularity. Then you can see 
@@ -50,7 +48,7 @@ slider <- dccRangeSlider(
 	max=1006,
 	step=1,
 	value=list(1, 1006),
-	pushable = 10, 
+	pushable = 15, 
 	marks = list(
 		"1" = list("label" = "#1"),
 		"100" = list("label" = "#100"),
@@ -72,24 +70,24 @@ make_plot1 <- function(maxRank = 1, minRank = 1006){
 	subjectCounts <- as.data.frame(table(bookWC %>% filter(! str_detect(Desc, "Fiction")) %>%
 																			 	filter(Rank >= maxRank & Rank <= minRank) %>% 
 																			 	pull(Desc))) %>% 
-		mutate(Size = scale(Freq))
-	## Calculate plotting positions
-	plot_pos <- as.data.frame(wordlayout(x = sample(-70:70, 20, replace = TRUE), 
-																			 y = sample(-70:70, 20, replace = TRUE), 
-																			 words = as.character(subjectCounts$Var1[1:20]),
-																			 xlim = c(-100, 100), ylim = c(-100,100),
-																			 rotate90 = FALSE, cex = subjectCounts$Size + 10)) %>% 
-		tibble::rownames_to_column("Label") %>% 
-		left_join(subjectCounts, by = c("Label" = "Var1"))
+		mutate(Size = scale(Freq)) %>% 
+		arrange(desc(Freq))
+	## Calculate plotting positions ** NEEDS IMPROVEMENT TO PREVENT OVERLAP **
+	plot_pos <- subjectCounts %>% 
+		slice(1:15) %>%  # Only plot top 15 words/subject
+		mutate(x = sample(-70:70, 15, replace = FALSE),
+					 y = sample(-20:20, 15, replace = FALSE))
 	
 	plot1 <- plot_pos %>% 
-		ggplot() +
-		aes(x = x, y = y, label = Label) +
+		ggplot(aes(x = x, y = y, label = Var1)) +
 		geom_text(aes(size = Size + 5), show.legend = FALSE) +
-		xlim(-100, 100) + 
-		ylim(-100, 100) + 
-		theme_classic()
-	ggplotly(plot1)
+		xlim(-100, 100) +
+		ylim(-40, 40) +
+		theme_classic() +
+		theme(axis.line = element_blank(), axis.title = element_blank(), 
+					axis.text = element_blank(), axis.ticks = element_blank())
+	
+	ggplotly(plot1, width = 1000, height = 400)
 }
 
 # Make bar graph plot
@@ -108,7 +106,9 @@ make_plot2 <- function(maxRank = 1, minRank = 1006){
 		coord_flip() +
 		xlab("") +
 		ylab("Frequency") + 
+		ggtitle(paste0("Most Common Subject Matter for Books Ranked ", maxRank, " to ", minRank)) +
 		scale_colour_gradientn(colours = rainbow(20)) +
+		guides(colours = FALSE) + 
 		theme_classic() 
 	ggplotly(plot2, width = 1000, height = 400)
 }
@@ -123,9 +123,9 @@ make_text <- function(maxRank = 1, minRank = 1006){
 	aveSubjectivity <- round(mean(tempBook$subjectivity, na.rm = TRUE), 2)
 	avePolarity <- round(mean(tempBook$polarity, na.rm = TRUE), 2)
 	
-	return(list(htmlP(paste0("Displaying results for books ranked from ", maxRank, " to ", minRank,
+	return(list(htmlP(paste0("Displaying results for books ranked from #", maxRank, " to #", minRank,
 								" on Project Guttenberg.")),
-							htmlStrong("*Structural Details*"),
+							htmlStrong("Structural Details"),
 							htmlP(paste0("Average year of author birth: ", aveAuthBirth)),
 							htmlP(paste0("Average number of sentences: ", aveSentences)),
 							htmlP(paste0("Average number of words: ", aveWord)),
@@ -170,10 +170,16 @@ app$layout(
 			htmlH1(children="Project Gutenberg Book Analysis"),
 			md,
 			slider,
-			htmlH3(children = "Summary of Selected Books:"),
 			htmlDiv(list(
-				htmlDiv(id = "summaryInfo"),
-				dccGraph(id='barchart', figure = make_plot2(), style = list("width" = "100%"))),
+				htmlDiv(list(
+					htmlH3(children = "Summary of Selected Books:"),
+					htmlDiv(id = "summaryInfo"))),
+				dccTabs(id = "tabs", children = list(
+					dccTab(label = "Popular Subject Bar Graph", children = list(
+						dccGraph(id='barchart', figure = make_plot2(), style = list("width" = "100%")))),
+					dccTab(label = "Popular Subject Word Cloud", children = list(
+						dccGraph(id='wordCloudPlot', figure = make_plot1(), style = list("width" = "100%"))))
+					))),
 				style = list("columnCount" = 2, 'display' = 'flex'))),
 		style = list("flex-wrap" = "nowrap"))
 	)
