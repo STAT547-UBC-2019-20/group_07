@@ -1,4 +1,4 @@
 
 # Tests
 
-This directory will contain all tests.
+This directory will contain all unit tests.
