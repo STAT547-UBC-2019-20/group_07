@@ -315,7 +315,7 @@ app$callback(
 
 app$run_server(debug=TRUE)
 
-	#app$run_server(host = '0.0.0.0', port = Sys.getenv('PORT', 8050)) # NEW: MUST CHANGE FOR DEPLOYMENT
+	app$run_server(host = '0.0.0.0', port = Sys.getenv('PORT', 8050)) # NEW: MUST CHANGE FOR DEPLOYMENT
 	
 
 	# command to add dash app in Rstudio viewer:
