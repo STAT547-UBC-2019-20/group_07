@@ -16,7 +16,6 @@ suppressPackageStartupMessages(library(dashHtmlComponents))
 suppressPackageStartupMessages(library(plotly))
 suppressPackageStartupMessages(library(here))
 suppressPackageStartupMessages(library(purrr))
-suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(stringr))
 suppressPackageStartupMessages(library(wordcloud))
 
