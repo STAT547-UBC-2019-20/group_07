@@ -10,14 +10,15 @@
 #
 
 # Load various R libraries quietly
-library(dash)
-library(dashCoreComponents)
-library(dashHtmlComponents)
-library(plotly)
-library(here)
-library(purrr)
-library(stringr)
-library(wordcloud)
+suppressPackageStartupMessages(library(dash))
+suppressPackageStartupMessages(library(dashCoreComponents))
+suppressPackageStartupMessages(library(dashHtmlComponents))
+suppressPackageStartupMessages(library(plotly))
+suppressPackageStartupMessages(library(here))
+suppressPackageStartupMessages(library(purrr))
+suppressPackageStartupMessages(library(stringr))
+suppressPackageStartupMessages(library(wordcloud))
+suppressPackageStartupMessages(library(dplyr))
 
 title <- "Dashboard - Books at Project Gutenberg"
 
@@ -315,8 +316,9 @@ app$callback(
 
 
 
-	app$run_server(host = '0.0.0.0', port = Sys.getenv('PORT', 8050)) # NEW: MUST CHANGE FOR DEPLOYMENT
-	
+app$run_server(host = '0.0.0.0', port = Sys.getenv('PORT', 8050)) # NEW: MUST CHANGE FOR DEPLOYMENT
+# app$run_server() # NEW: MUST CHANGE FOR DEPLOYMENT
+
 
 	# command to add dash app in Rstudio viewer:
 	# rstudioapi::viewer("http://127.0.0.1:8050")
