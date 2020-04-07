@@ -1,9 +1,11 @@
 {
-  "name": "Testing deployment of DashR app to heroku",
-  "description": "This app does one little thing, and does it well.",
+  "name": "Project Gutenberg Book Analysis App",
+  "description": "Analyzes the themes and properties of the most popular books on Project Gutenberg",
   "keywords": [
     "heroku",
     "R deployment",
-    "Dash R"
+    "Dash R",
+    "popular",
+    "books"
 ],
 }
