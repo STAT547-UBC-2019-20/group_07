@@ -1,81 +1,61 @@
-# Load libraries quietly
+# 07-Apr-2020
+# This code defines the main Dashboard based on DashR
+# For better formatting of the layouts we import 
+# and use Bootstrap css (only the css, no JavaScripts) 
+# More information on Bootstrap and its various components:
+# https://getbootstrap.com/docs/4.0/getting-started/introduction/
+#
+# You can find information about the css classes used in this Dashboard
+# here: https://www.w3schools.com/bootstrap4/bootstrap_ref_all_classes.asp
+#
+
+# Load various R libraries quietly
 suppressPackageStartupMessages(library(dash))
 suppressPackageStartupMessages(library(dashCoreComponents))
 suppressPackageStartupMessages(library(dashHtmlComponents))
 suppressPackageStartupMessages(library(plotly))
 suppressPackageStartupMessages(library(here))
 suppressPackageStartupMessages(library(purrr))
-suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(stringr))
 suppressPackageStartupMessages(library(wordcloud))
+suppressPackageStartupMessages(library(dplyr))
 
+title <- "Dashboard - Books at Project Gutenberg"
 
-# Great color schemes from: https://www.canva.com/colors/color-meanings/amber/
-title <- "Dashboard - Books at Project Guttenberg"
+# color scheme
+colors <- list (bg.color = "#eae9ee", p2.color = "#ffc110", tl.color = "#ffc104",
+                c1.color = "#765903", c2.color = "#a57b02", c3.color = "#d29c01",
+                c4.color = "#fdbd09", c5.color = "#faca2a", c6.color = "#04c2f0",
+                c7.color = "#00a2fc")
 
 # Markdown
 md <- dccMarkdown("
                   The purpose of this dashboard is to explore the
-                  selection of books available in **Project Gutenberg**. Specifically, we are 
-                  examining the structural and semantic attributes of the books by _popularity_.
-                  You can visit the **Project Gutenberg** website [here](https://www.gutenberg.org). 
+                  selection of books available in [Project Gutenberg](https://www.gutenberg.org). 
+                  Specifically, we are examining the structural and semantic attributes 
+                  of the books by _popularity_.
                   
-                  To use our dashboard, use the slider to select 
-                  a group of 200 books by decreasing popularity. Then,on the
-                  left hand side, the user can see 
-                  statistics of semantic and thematic variables
-                  of the selected group of books. In the center, the user can see the
+                  To use our dashboard, use the slider to select a group of 200 books 
+                  by decreasing popularity. Then, you can see 
+                  statistics of semantic (in amber) and thematic (in blue) variables
+                  of the selected group of books. You will also see the
                   most common subjects in the books selected by either a 
-                  bar chart or a word cloud (by selecting the appropriate tab).
+                  bar chart or a word cloud.
                   ")
+
 ## Read in raw data
 bookFull <- read.csv(here("Data","classics_clean.csv"))
 bookWC <- read.csv(here("Data","classics_word_cloud.csv"))
 
-app <- Dash$new()
-
-# I could not figure out better way to add <style> tag
-# app$index_string is copied from the help ?app. I just
-# added <style> tag
-# (I did not want to add more files than the core app.R)
-# I also loaded some pre-defined classes from the bootstrap framework.
-# A useful link that helped to develop the layout:
-# https://www.w3schools.com/bootstrap/bootstrap_templates.asp
-
-app$index_string(
-  "<!DOCTYPE html>
-  <html lang=\"en\">
-  <head>
-  {%meta_tags%}
-  <title>
-  {%favicon%}
-  {%css_tags%}
-  </title>
-  <style>
-  body 
-  .row.content {height: 1500px}
-  </style>
-  <link 
-  rel=\"stylesheet\" 
-  href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css\" 
-  integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" 
-  crossorigin=\"anonymous\">
-  </head>
-  <body>
-  {%app_entry%}
-  <footer>
-  {%config%}
-  {%scripts%}
-  </footer>
-  </body>
-  </html>"
-)
+# Create the dashboard app and load the Bootstrap's css
+app <- Dash$new(
+  external_stylesheets = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css")
 
 app$title(title)
-
-
+# This components uses the 'Card' css classes defined by bootstrap 
+# More info: https://getbootstrap.com/docs/4.0/components/card/
 make_struct_cards <- function(maxRank = 1, minRank = 1006){
-  w <- "300px"
+  w <- "330px"
   tempBook <- bookFull %>% filter(rank >= maxRank & rank <= minRank)
   
   # Average birth year of the Author Card
@@ -83,13 +63,13 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.year <- htmlDiv(
     htmlDiv(
       list(
-        htmlLabel("Average Year of Author's Birth", className = "text-white"),
-        #htmlLabel("year of author's birth", className = "text-white"),
-        htmlH4(avg.auth.birth, className = "text-white")
+        htmlLabel("Author's Birth", className = "text-white"),
+        htmlH6(avg.auth.birth, className = "text-white")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center", style = list(width = w, backgroundColor="#755800", height = "120px") 
+    ,className = "card text-center", style = list(width = w, 
+                                                  backgroundColor=colors$c1.color, height = "120px") 
   )
   
   avg.length <- round(mean(tempBook[tempBook$sentences > 0,"sentences"], na.rm = TRUE))
@@ -97,52 +77,53 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.num <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Sentences", className = "text-white"),
-        #  htmlP("Sentences in book", className = "text-white"),
-        htmlH4(avg.length, className = "text-white text-bold")
+        htmlP("Sentences", className = "text-white"),
+        htmlH6(format(avg.length,big.mark = ","), className = "text-white text-bold")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center", style = list(width = w, backgroundColor="#a37a00", height = "120px")
+    ,className = "card text-center", style = list(width = w, 
+                                                  backgroundColor=colors$c2.color, height = "120px")
   )
   
   avg.words <- round(mean(tempBook[tempBook$words > 0 ,"words"], na.rm = TRUE))
   card.words <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Words", className = "text-white"),
-        # htmlP("Words in book", className = "text-white"),
-        htmlH4(avg.words, className = "text-white text-bold")
+        htmlP("Words", className = "text-white"),
+        htmlH6(format(avg.words,big.mark = ","), className = "text-white text-bold")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center", style = list(width = w, backgroundColor="#d19d00", height = "120px")
+    ,className = "card text-center", style = list(width = w, 
+                                                  backgroundColor=colors$c3.color, height = "120px")
   )
   
   avg.dfclt.words <- round(mean(tempBook[tempBook$difficult.words > 0 ,"difficult.words"], na.rm = TRUE))
   card.dfclt.words <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Difficult Words", className = "text-white"),
-        #htmlP("Difficult words", className = "text-white"),
-        htmlH4(avg.dfclt.words, className = "text-white text-bold")
+        htmlP("Difficult Words", className = "text-white"),
+        htmlH6(format(avg.dfclt.words,big.mark = ","), className = "text-white text-bold")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center", style = list(width = w, backgroundColor="#ffbf00", height = "120px")
+    ,className = "card text-center", style = list(width = w, 
+                                                  backgroundColor=colors$c4.color, height = "120px")
   )
   
-  avg.rdbl <- round(mean(tempBook[tempBook$automated.readability.index > 0 ,"automated.readability.index"], na.rm = TRUE))
+  avg.rdbl <- round(mean(tempBook[tempBook$automated.readability.index > 0,
+                                  "automated.readability.index"], na.rm = TRUE))
   card.rdbl <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Readability", className = "text-white"),
-        #htmlP("Readability", className = "text-white"),
-        htmlH4(avg.rdbl, className = "text-white text-bold")
+        htmlP("Readability", className = "text-white"),
+        htmlH6(avg.rdbl, className = "text-white text-bold")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center", style = list(width = w, backgroundColor="#ffcb2e", height = "120px")
+    ,className = "card text-center", style = list(width = w, 
+                                                  backgroundColor=colors$c5.color, height = "120px")
   )
   
   # Average subjectivity
@@ -151,14 +132,13 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.subj <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Subjectivity", className = "text-white"),
-        #htmlP("Subjectivity", className = "text-white"),
-        htmlH4(avg.subj.perc, className = "text-white")
+        htmlP("Subjectivity", className = "text-white"),
+        htmlH6(avg.subj.perc, className = "text-white")
       )
       ,className = "card-body"
     )
     ,className = "card text-center", 
-    style = list(width = w, backgroundColor="#00bfff",height = "120px") 
+    style = list(width = w, backgroundColor=colors$c6.color,height = "120px") 
   )
   
   # Average polarity
@@ -167,13 +147,13 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.polar <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Polarity", className = "text-white"),
-        #htmlP("Polarity", className = "text-white"),
-        htmlH4(avg.polar.perc, className = "text-white text-bold")
+        htmlP("Polarity", className = "text-white"),
+        htmlH6(avg.polar.perc, className = "text-white text-bold")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center", style = list(width = w, backgroundColor="#00a7ff", height = "120px")
+    ,className = "card text-center", style = list(width = w, 
+                                                  backgroundColor=colors$c7.color, height = "120px")
   )
   
   return (htmlDiv(
@@ -201,46 +181,47 @@ make_plot1 <- function(maxRank = 1, minRank = 1006){
     mutate(Size = scale(Freq)) %>% 
     arrange(desc(Freq))
   
-  ## Calculate plotting positions ** NEEDS IMPROVEMENT TO PREVENT OVERLAP **
+  ## Calculate plotting positions 
   plot_pos <- subjectCounts %>% 
     slice(1:15) %>%  # Only plot top 15 words/subject
-    mutate(x = sample(-70:70, 15, replace = FALSE),
-           y = sample(-20:20, 15, replace = FALSE))
+    mutate(x = sample(-90:90, 15, replace = TRUE),
+           y = sample(-90:90, 15, replace = TRUE))
   
   plot1 <- plot_pos %>% 
     ggplot(aes(x = x, y = y, label = Var1)) +
     geom_text(aes(size = Size + 5), show.legend = FALSE) +
-    xlim(-100, 100) +
-    ylim(-40, 40) +
     theme_classic() +
     theme(axis.line = element_blank(), axis.title = element_blank(), 
           axis.text = element_blank(), axis.ticks = element_blank())
   
-  ggplotly(plot1, width = 1000, height = 400)
+  ggplotly(plot1)
 }
 
 # Make bar graph plot
 make_plot2 <- function(maxRank = 1, minRank = 1006){
   ## Calculate n occurences for each subject
   ## Remove fiction
-  subjectCounts <- as.data.frame(table(bookWC %>% filter(! str_detect(Desc, "Fiction")) %>%
-                                         filter(Rank >= maxRank & Rank <= minRank) %>% 
-                                         pull(Desc)))
+  subjectCounts <- as.data.frame(
+    table(bookWC %>% 
+            filter(! str_detect(Desc, "Fiction")) %>%
+            filter(Rank >= maxRank & Rank <= minRank) %>% 
+            pull(Desc))
+  )
   
   plot2 <- subjectCounts %>% 
     arrange(desc(Freq)) %>% 
     slice(1:20) %>%
-    ggplot(aes(x = reorder(Var1, Freq), y = Freq )) + #, fill = reorder(Var1, Freq))) +
+    ggplot(aes(x = reorder(Var1, Freq), y = Freq )) + 
     geom_col(show.legend = FALSE) + 
     coord_flip() +
     xlab(NULL) +
     ylab("Frequency") + 
     ggtitle(paste0("Most Common Subject Matter for Books Ranked ", maxRank, " to ", minRank)) +
-    theme_classic() +
-    scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9"))
+    theme_classic() 
   ggplotly(plot2,  height = 400)
 }
 
+# Create the graphs
 tab <- dccTabs(id = "tabs", children = list(
   dccTab(label = "Popular Subject Bar Graph", children = list(
     dccGraph(id='barchart', figure = make_plot2(), style = list("width" = "100%")))),
@@ -250,7 +231,8 @@ tab <- dccTabs(id = "tabs", children = list(
 
 slider <- htmlDiv(
   list(
-    htmlP("Select Popularity Range"),
+    htmlH4(id="slider-title-id"),
+    htmlSup("(Drag the slider to change)", className = "text-muted"),
     dccRangeSlider(
       id='popSlider',
       min=1,
@@ -270,16 +252,14 @@ slider <- htmlDiv(
         "800" = list("label" = "#800"),
         "900" = list("label" = "#900"),
         "1000" = list("label" = "#1000"))
-      
     )), className = "mx-auto text-center", 
   style = list(width="60%")
-  
 )
 
 app$layout(
   htmlDiv(
     list(
-      htmlDiv("", style = list(height = "40px")),
+      htmlDiv(style = list(height = "35px")),
       
       htmlDiv(
         list(
@@ -288,7 +268,8 @@ app$layout(
           md
         ), 
         className = "mx-auto jumbotron text-center shadow-lg p-3 mb-5 rounded",  
-        style = list(width="90%", color = "white", backgroundColor = "#ffbf00")), 
+        style = list(width="90%", color = "white", backgroundColor = colors$tl.color)), 
+      
       htmlDiv(
         list(
           slider,
@@ -296,44 +277,41 @@ app$layout(
             htmlDiv(id="struct-cards-id"),
             className = "card-deck p-3"
           ),
-          htmlDiv(style = list(height="40px")),
-          htmlDiv(tab, className = "well p-3 mb-5", style = list(backgroundColor = "#ffbf00"))
+          htmlDiv(tab, className = "well p-3 mb-5", 
+                  style = list(backgroundColor = colors$p2.color))
         ), 
         className = "mx-auto jumbotron text-center shadow-lg p-3 mb-5 bg-white rounded", 
         style = list(width="90%"))
-      
-    ), className = "container-fluid", style = list(backgroundColor = "#E9EAEC")
+    ), className = "container-fluid", style = list(backgroundColor = colors$bg.color)
   ))
 
 app$callback(
-  #update summary info
   output=list(id = 'wordCloudPlot', property = 'figure'),
-  #based on popularity values selected
   params=list(input(id = 'popSlider', property='value')),
-  #this translates your list of params into function arguments
   function(popSlider) {
     make_plot1(maxRank = popSlider[1], minRank = popSlider[2])
   })
 
 app$callback(
-  #update summary info
   output=list(id = 'barchart', property = 'figure'),
-  #based on popularity values selected
   params=list(input(id = 'popSlider', property='value')),
-  #this translates your list of params into function arguments
   function(popSlider) {
     make_plot2(maxRank = popSlider[1], minRank = popSlider[2])
   })
 
 app$callback(
-  #update summary info
   output=list(id = 'struct-cards-id', property = 'children'),
-  #based on popularity values selected
   params=list(input(id = 'popSlider', property='value')),
-  #this translates your list of params into function arguments
   function(popSlider) {
     make_struct_cards(maxRank = popSlider[1], minRank = popSlider[2])
   })
 
+app$callback(
+  output=list(id = 'slider-title-id', property = 'children'),
+  params=list(input(id = 'popSlider', property='value')),
+  function(popSlider) {
+    return (sprintf("Selected Popularity Range: %s - %s", popSlider[1], popSlider[2]))
+  }
+)
 
-app$run_server(debug=TRUE)
+app$run_server(host = '0.0.0.0', port = Sys.getenv('PORT', 8050)) 
