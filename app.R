@@ -55,7 +55,7 @@ app$title(title)
 # This components uses the 'Card' css classes defined by bootstrap 
 # More info: https://getbootstrap.com/docs/4.0/components/card/
 make_struct_cards <- function(maxRank = 1, minRank = 1006){
-  w <- "300px"
+  w <- "330px"
   tempBook <- bookFull %>% filter(rank >= maxRank & rank <= minRank)
   
   # Average birth year of the Author Card
@@ -63,8 +63,8 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.year <- htmlDiv(
     htmlDiv(
       list(
-        htmlLabel("Average Year of Author's Birth", className = "text-white"),
-        htmlH4(avg.auth.birth, className = "text-white")
+        htmlLabel("Author's Birth", className = "text-white"),
+        htmlH6(avg.auth.birth, className = "text-white")
       )
       ,className = "card-body"
     )
@@ -77,8 +77,8 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.num <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Sentences", className = "text-white"),
-        htmlH4(format(avg.length,big.mark = ","), className = "text-white text-bold")
+        htmlP("Sentences", className = "text-white"),
+        htmlH6(format(avg.length,big.mark = ","), className = "text-white text-bold")
       )
       ,className = "card-body"
     )
@@ -90,8 +90,8 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.words <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Words", className = "text-white"),
-        htmlH4(format(avg.words,big.mark = ","), className = "text-white text-bold")
+        htmlP("Words", className = "text-white"),
+        htmlH6(format(avg.words,big.mark = ","), className = "text-white text-bold")
       )
       ,className = "card-body"
     )
@@ -103,8 +103,8 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.dfclt.words <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Difficult Words", className = "text-white"),
-        htmlH4(format(avg.dfclt.words,big.mark = ","), className = "text-white text-bold")
+        htmlP("Difficult Words", className = "text-white"),
+        htmlH6(format(avg.dfclt.words,big.mark = ","), className = "text-white text-bold")
       )
       ,className = "card-body"
     )
@@ -117,8 +117,8 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.rdbl <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Readability", className = "text-white"),
-        htmlH4(avg.rdbl, className = "text-white text-bold")
+        htmlP("Readability", className = "text-white"),
+        htmlH6(avg.rdbl, className = "text-white text-bold")
       )
       ,className = "card-body"
     )
@@ -132,8 +132,8 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.subj <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Subjectivity", className = "text-white"),
-        htmlH4(avg.subj.perc, className = "text-white")
+        htmlP("Subjectivity", className = "text-white"),
+        htmlH6(avg.subj.perc, className = "text-white")
       )
       ,className = "card-body"
     )
@@ -147,8 +147,8 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.polar <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Average Polarity", className = "text-white"),
-        htmlH4(avg.polar.perc, className = "text-white text-bold")
+        htmlP("Polarity", className = "text-white"),
+        htmlH6(avg.polar.perc, className = "text-white text-bold")
       )
       ,className = "card-body"
     )
@@ -314,11 +314,4 @@ app$callback(
   }
 )
 
-
-
-app$run_server(host = '0.0.0.0', port = Sys.getenv('PORT', 8050)) # NEW: MUST CHANGE FOR DEPLOYMENT
-# app$run_server() # NEW: MUST CHANGE FOR DEPLOYMENT
-
-
-	# command to add dash app in Rstudio viewer:
-	# rstudioapi::viewer("http://127.0.0.1:8050")
+app$run_server(host = '0.0.0.0', port = Sys.getenv('PORT', 8050)) 
