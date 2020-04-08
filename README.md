@@ -115,4 +115,4 @@ These comparisons can also be made to the database as a whole by using the 'sele
 Here is a screenshot of our dashboard:
 ![](https://github.com/STAT547-UBC-2019-20/group_07/blob/master/images/dashScreenShot.png)
 
-Click [here]() to see our dash board.
+Click [here](https://group-07.herokuapp.com/?fbclid=IwAR3s-XFZqxRK7riEhPCE-IT7VWbs5pi1k01rjozRuHaLkedoKthjeQl_GSw) to see our dash board.
