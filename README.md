@@ -113,6 +113,6 @@ These comparisons can also be made to the database as a whole by using the 'sele
 ### Dashboard Deployment
 
 Here is a screenshot of our dashboard:
-
+![](https://github.com/STAT547-UBC-2019-20/group_07/blob/master/images/dashScreenShot.png)
 
 Click [here]() to see our dash board.
