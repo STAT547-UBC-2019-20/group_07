@@ -109,3 +109,5 @@ For example, they might want to look at how a variety of variables such as sente
 A user can do this by first selecting the 20 most popular books using the slider and looking at the appropriate variables in the column for semantic analysis and then selecting the twenty least popular books in the same way and repeating the process.
 For users who wish to examine how thematic variables change in books based on popularity, they can examine the thematic variables section as well as the word cloud in which prominent themes are displayed.
 These comparisons can also be made to the database as a whole by using the 'select all' feature. 
+
+#end
