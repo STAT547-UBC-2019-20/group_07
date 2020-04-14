@@ -1,0 +1,9 @@
+{
+  "name": "Project Gutenberg Book Analysis App",
+  "description": "Analyzes the themes and properties of the most popular books on Project Gutenberg",
+  "keywords": [
+    "heroku",
+    "R deployment",
+    "Dash R",
+],
+}
