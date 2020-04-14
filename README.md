@@ -110,6 +110,7 @@ A user can do this by first selecting the 20 most popular books using the slider
 For users who wish to examine how thematic variables change in books based on popularity, they can examine the thematic variables section as well as the word cloud in which prominent themes are displayed.
 These comparisons can also be made to the database as a whole by using the 'select all' feature. 
 
+
 ### Dashboard Deployment
 
 Here is a screenshot of our dashboard:
@@ -117,3 +118,4 @@ Here is a screenshot of our dashboard:
 
 Click [here](https://group-07.herokuapp.com/?fbclid=IwAR3s-XFZqxRK7riEhPCE-IT7VWbs5pi1k01rjozRuHaLkedoKthjeQl_GSw) to see our dash board.
 #
+

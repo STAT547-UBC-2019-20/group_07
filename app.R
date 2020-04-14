@@ -1,7 +1,9 @@
 # 07-Apr-2020
 # This code defines the main Dashboard based on DashR
+
 # For better formatting of the layouts we import
 # and use Bootstrap css (only the css, no JavaScripts)
+
 # More information on Bootstrap and its various components:
 # https://getbootstrap.com/docs/4.0/getting-started/introduction/
 #
@@ -31,16 +33,17 @@ colors <- list (bg.color = "#eae9ee", p2.color = "#ffc110", tl.color = "#ffc104"
 # Markdown
 md <- dccMarkdown("
                   The purpose of this dashboard is to explore the
-                  selection of books available in [Project Gutenberg](https://www.gutenberg.org).
-                  Specifically, we are examining the structural and semantic attributes
+
+                  selection of books available in [Project Gutenberg](https://www.gutenberg.org). 
+                  Specifically, we are examining the structural and semantic attributes 
                   of the books by _popularity_.
                   
-                  To use our dashboard, use the slider to select a group of 200 books
-                  by decreasing popularity. Then, you can see
+                  To use our dashboard, use the slider to select a group of 200 books 
+                  by decreasing popularity. Then, you can see 
                   statistics of semantic (in amber) and thematic (in blue) variables
                   of the selected group of books. You will also see the
-                  most common subjects in the books selected by either a
-                  bar chart or a word cloud.
+                  most common subjects in the books selected by either a 
+   bar chart or a word cloud.
                   ")
 
 ## Read in raw data
@@ -52,7 +55,9 @@ app <- Dash$new(
   external_stylesheets = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css")
 
 app$title(title)
-# This components uses the 'Card' css classes defined by bootstrap
+
+# This components uses the 'Card' css classes defined by bootstrap 
+
 # More info: https://getbootstrap.com/docs/4.0/components/card/
 make_struct_cards <- function(maxRank = 1, minRank = 1006){
   w <- "330px"
@@ -63,13 +68,17 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.year <- htmlDiv(
     htmlDiv(
       list(
-        htmlLabel("Avg Author's Birth", className = "text-white"),
+
+        htmlLabel("Author's Birth", className = "text-white"),
+
         htmlH6(avg.auth.birth, className = "text-white")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center", style = list(width = w,
-                                                  backgroundColor=colors$c1.color, height = "120px")
+
+    ,className = "card text-center", style = list(width = w, 
+                                                  backgroundColor=colors$c1.color, height = "120px") 
+
   )
   
   avg.length <- round(mean(tempBook[tempBook$sentences > 0,"sentences"], na.rm = TRUE))
@@ -77,12 +86,16 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.num <- htmlDiv(
     htmlDiv(
       list(
+
         htmlP("Avg Sentences", className = "text-white"),
+
         htmlH6(format(avg.length,big.mark = ","), className = "text-white text-bold")
       )
       ,className = "card-body"
     )
+
     ,className = "card text-center", style = list(width = w,
+
                                                   backgroundColor=colors$c2.color, height = "120px")
   )
   
@@ -90,12 +103,16 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.words <- htmlDiv(
     htmlDiv(
       list(
+
         htmlP("Avg Words", className = "text-white"),
+
         htmlH6(format(avg.words,big.mark = ","), className = "text-white text-bold")
       )
       ,className = "card-body"
     )
+
     ,className = "card text-center", style = list(width = w,
+
                                                   backgroundColor=colors$c3.color, height = "120px")
   )
   
@@ -103,12 +120,16 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.dfclt.words <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Avg Difficult Words", className = "text-white"),
+
+        htmlP("Difficult Words", className = "text-white"),
+
         htmlH6(format(avg.dfclt.words,big.mark = ","), className = "text-white text-bold")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center", style = list(width = w,
+
+    ,className = "card text-center", style = list(width = w, 
+
                                                   backgroundColor=colors$c4.color, height = "120px")
   )
   
@@ -117,12 +138,16 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.rdbl <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Avg Readability", className = "text-white"),
+
+        htmlP("Readability", className = "text-white"),
+
         htmlH6(avg.rdbl, className = "text-white text-bold")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center", style = list(width = w,
+
+    ,className = "card text-center", style = list(width = w, 
+
                                                   backgroundColor=colors$c5.color, height = "120px")
   )
   
@@ -132,13 +157,17 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.subj <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Avg Subjectivity", className = "text-white"),
+
+        htmlP("Subjectivity", className = "text-white"),
+
         htmlH6(avg.subj.perc, className = "text-white")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center",
-    style = list(width = w, backgroundColor=colors$c6.color,height = "120px")
+
+    ,className = "card text-center", 
+    style = list(width = w, backgroundColor=colors$c6.color,height = "120px") 
+
   )
   
   # Average polarity
@@ -147,22 +176,28 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
   card.polar <- htmlDiv(
     htmlDiv(
       list(
-        htmlP("Avg Polarity", className = "text-white"),
+
+        htmlP("Polarity", className = "text-white"),
+
         htmlH6(avg.polar.perc, className = "text-white text-bold")
       )
       ,className = "card-body"
     )
-    ,className = "card text-center", style = list(width = w,
+
+    ,className = "card text-center", style = list(width = w, 
+
                                                   backgroundColor=colors$c7.color, height = "120px")
   )
   
   return (htmlDiv(
-    list(card.year,
-         card.num,
-         card.words,
+
+    list(card.year, 
+         card.num, 
+         card.words, 
          card.dfclt.words,
          card.rdbl,
-         card.subj,
+         card.subj, 
+
          card.polar)
     ,className = "row"))
 }
@@ -171,28 +206,31 @@ make_struct_cards <- function(maxRank = 1, minRank = 1006){
 make_plot1 <- function(maxRank = 1, minRank = 1006){
   ## Calculate n occurences for each subject
   ## Remove fiction
-  subjectCounts <-
+
+  subjectCounts <- 
     as.data.frame(
       table(
-        bookWC %>%
+        bookWC %>% 
           filter(! str_detect(Desc, "Fiction")) %>%
-          filter(Rank >= maxRank & Rank <= minRank) %>%
-          pull(Desc))) %>%
-    mutate(Size = scale(Freq)) %>%
+          filter(Rank >= maxRank & Rank <= minRank) %>% 
+          pull(Desc))) %>% 
+    mutate(Size = scale(Freq)) %>% 
     arrange(desc(Freq))
   
-  ## Calculate plotting positions
-  plot_pos <- subjectCounts %>%
+  ## Calculate plotting positions 
+  plot_pos <- subjectCounts %>% 
+
     slice(1:15) %>%  # Only plot top 15 words/subject
     mutate(x = sample(-90:90, 15, replace = TRUE),
            y = sample(-90:90, 15, replace = TRUE))
   
-  plot1 <- plot_pos %>%
+
+  plot1 <- plot_pos %>% 
     ggplot(aes(x = x, y = y, label = Var1)) +
     geom_text(aes(size = Size + 5), show.legend = FALSE) +
     theme_classic() +
-    theme(axis.line = element_blank(), axis.title = element_blank(),
-          axis.text = element_blank(), axis.ticks = element_blank())
+    theme(axis.line = element_blank(), axis.title = element_blank(), 
+
   
   ggplotly(plot1)
 }
@@ -202,22 +240,24 @@ make_plot2 <- function(maxRank = 1, minRank = 1006){
   ## Calculate n occurences for each subject
   ## Remove fiction
   subjectCounts <- as.data.frame(
-    table(bookWC %>%
+
+    table(bookWC %>% 
             filter(! str_detect(Desc, "Fiction")) %>%
-            filter(Rank >= maxRank & Rank <= minRank) %>%
+            filter(Rank >= maxRank & Rank <= minRank) %>% 
             pull(Desc))
   )
   
-  plot2 <- subjectCounts %>%
-    arrange(desc(Freq)) %>%
+  plot2 <- subjectCounts %>% 
+    arrange(desc(Freq)) %>% 
     slice(1:20) %>%
-    ggplot(aes(x = reorder(Var1, Freq), y = Freq )) +
-    geom_col(show.legend = FALSE) +
+    ggplot(aes(x = reorder(Var1, Freq), y = Freq )) + 
+    geom_col(show.legend = FALSE) + 
     coord_flip() +
     xlab(NULL) +
-    ylab("Frequency") +
+    ylab("Frequency") + 
     ggtitle(paste0("Most Common Subject Matter for Books Ranked ", maxRank, " to ", minRank)) +
-    theme_classic()
+    theme_classic() 
+
   ggplotly(plot2,  height = 400)
 }
 
@@ -239,7 +279,9 @@ slider <- htmlDiv(
       max=1006,
       step=1,
       value=list(1, 1006),
-      pushable = 15,
+
+      pushable = 15, 
+
       marks = list(
         "1" = list("label" = "#1"),
         "100" = list("label" = "#100"),
@@ -252,8 +294,9 @@ slider <- htmlDiv(
         "800" = list("label" = "#800"),
         "900" = list("label" = "#900"),
         "1000" = list("label" = "#1000"))
-    )), className = "mx-auto text-center",
-  style = list(width="60%")
+
+    )), className = "mx-auto text-center", 
+
 )
 
 app$layout(
@@ -266,10 +309,11 @@ app$layout(
           htmlH2(title),
           htmlHr(),
           md
-        ),
+
+        ), 
         className = "mx-auto jumbotron text-center shadow-lg p-3 mb-5 rounded",  
-        style = list(width="90%", color = "white", backgroundColor = colors$tl.color)),
-      
+        style = list(width="90%", color = "white", backgroundColor = colors$tl.color)), 
+
       htmlDiv(
         list(
           slider,
@@ -277,10 +321,12 @@ app$layout(
             htmlDiv(id="struct-cards-id"),
             className = "card-deck p-3"
           ),
-          htmlDiv(tab, className = "well p-3 mb-5",
+
+          htmlDiv(tab, className = "well p-3 mb-5", 
                   style = list(backgroundColor = colors$p2.color))
-        ),
-        className = "mx-auto jumbotron text-center shadow-lg p-3 mb-5 bg-white rounded",
+        ), 
+        className = "mx-auto jumbotron text-center shadow-lg p-3 mb-5 bg-white rounded", 
+
         style = list(width="90%"))
     ), className = "container-fluid", style = list(backgroundColor = colors$bg.color)
   ))
@@ -314,4 +360,6 @@ app$callback(
   }
 )
 
+
 app$run_server(host = '0.0.0.0', port = Sys.getenv('PORT', 8050))
+
